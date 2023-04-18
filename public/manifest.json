@@ -1,11 +1,11 @@
 {
     "theme_color": "#35f644",
-    "background_color": "#010100",
+    "background_color": "#35f644",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Salitre magico",
-    "short_name": "Salitre",
+    "name": "Sálitre Mágico",
+    "short_name": "Sálitre Mágico",
     "icons": [
         {
             "src": "/icon-192x192.png",
