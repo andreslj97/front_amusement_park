@@ -1,5 +1,5 @@
 // Image component
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // Interface
 import { TBanner } from '../../interfaces/Banner/banner.interface'
