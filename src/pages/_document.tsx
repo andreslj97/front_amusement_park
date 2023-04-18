@@ -1,9 +1,13 @@
+/*eslint-disable */
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document (): JSX.Element {
   return (
     <Html lang='en'>
       <Head />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icon.png"></link>
+        <meta name="theme-color" content="#fff" />
       <body>
         <Main />
         <NextScript />
