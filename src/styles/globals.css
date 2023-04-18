@@ -4,5 +4,5 @@
 
 body {
   background-image: url('../../public/background.png');
-  padding: 5rem;
+  padding-inline: 2rem;
 }
