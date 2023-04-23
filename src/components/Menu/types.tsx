@@ -17,4 +17,4 @@ interface propsWithChildren {
   children: MenuType
 }
 
-export type { MenuType, MenuItem, propsWithChildren}
+export type { MenuType, MenuItem, propsWithChildren }
