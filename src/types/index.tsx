@@ -14,3 +14,9 @@ export enum StepsName {
   DatosCompra = 2,
   FinalizaCompra = 3,
 }
+
+export interface ItemTicket {
+  description: string
+}
+
+export interface ListTickets extends Array<ItemTicket> {}

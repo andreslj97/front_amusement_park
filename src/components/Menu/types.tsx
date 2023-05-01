@@ -1,8 +1,8 @@
 interface MenuType {
   position?: 'Top' | 'Bottom' | undefined
   direction?: 'Left' | 'Right' | undefined
-  widthLogo?: number
-  heightLogo?: number
+  widthLogo?: string
+  heightLogo?: string
   backgroundColor: string
   textColor: string
   level1: MenuItem[]
@@ -11,6 +11,8 @@ interface MenuType {
 interface MenuItem {
   id: number
   name: string
+  type: 'btn-round-medium' | 'btn-round-small' | undefined
+  color: 'bg-blue' | 'bg-yellow' | undefined
 }
 
 interface propsWithChildren {

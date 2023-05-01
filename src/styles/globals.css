@@ -4,5 +4,26 @@
 
 body {
   background-image: url('../../public/background.png');
-  padding-inline: 2rem;
+}
+
+@layer components {
+  .bg-yellow {
+      background-color: theme('colors[yellow]');
+  }
+  .bg-blue {
+    background-color: theme('colors[blue]');
+  }
+  .bg-green {
+    background-color: theme('colors[green]');
+  }
+  .btn-round-medium{
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+  }
+  .btn-round-small{
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
 }

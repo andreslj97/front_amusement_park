@@ -12,7 +12,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
 
   return (
     <div
-      className='pasos flex justify-around items-center'
+      className='pasos flex justify-center items-center text-[0px] mt-[1rem] text-white'
     >
       <div className=''>
         <button
@@ -23,19 +23,23 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.FechaVisita
             ? (
               <>
-                Fecha de visita (inactivo)
+                <div className='btn-round-medium bg-blue'>
+                  Fecha de visita
+                </div>
                 {StepsName.FechaVisita}
               </>
               )
             : (
               <>
-                Fecha de visita (activo)
+                <div className='btn-round-medium bg-yellow'>
+                  Fecha de visita
+                </div>
                 {StepsName.FechaVisita}
               </>
               )}
         </button>
       </div>
-      <span className='w-10 h-1 border-2 border-black' />
+      <span className='w-10 h-1 border-2 border-yellow' />
       <div className=''>
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
@@ -45,19 +49,23 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.MejoraExperiencia
             ? (
               <>
-                Mejora tu experiencia (inactivo)
+                <div className='btn-round-medium bg-blue'>
+                  Mejora tu experiencia
+                </div>
                 {StepsName.MejoraExperiencia}
               </>
               )
             : (
               <>
-                Mejora tu experiencia (activo)
+                <div className='btn-round-medium bg-yellow'>
+                  Mejora tu experiencia
+                </div>
                 {StepsName.MejoraExperiencia}
               </>
               )}
         </button>
       </div>
-      <span className='w-10 h-1 border-2 border-black' />
+      <span className='w-10 h-1 border-2 border-yellow' />
       <div className=''>
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
@@ -67,19 +75,23 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.DatosCompra
             ? (
               <>
-                Datos de compra (inactivo)
+                <div className='btn-round-medium bg-blue'>
+                  Datos de compra
+                </div>
                 {StepsName.DatosCompra}
               </>
               )
             : (
               <>
-                Datos de compra (activo)
+                <div className='btn-round-medium bg-yellow'>
+                  Datos de compra
+                </div>
                 {StepsName.DatosCompra}
               </>
               )}
         </button>
       </div>
-      <span className='w-10 h-1 border-2 border-black' />
+      <span className='w-10 h-1 border-2 border-yellow' />
       <div className=''>
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
@@ -89,13 +101,17 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.FinalizaCompra
             ? (
               <>
-                Finalizar compra (inactivo)
+                <div className='btn-round-medium bg-blue'>
+                  Finalizar compra
+                </div>
                 {StepsName.FinalizaCompra}
               </>
               )
             : (
               <>
-                Finalizar compra (activo)
+                <div className='btn-round-medium bg-yellow'>
+                  Finalizar compra
+                </div>
                 {StepsName.FinalizaCompra}
               </>
               )}
