@@ -54,7 +54,7 @@ const StepDate = ({ setStep, step }: StepperProps): JSX.Element => {
                       alt='user profile picture'
                       width={121}
                     />}
-              <div className='max-w-[60%] text-[12px] font-thin'>{itemTicket.description}</div>
+              <div className='max-w-[60%] text-base font-thin'>{itemTicket.description}</div>
             </div>
           ))}
         </div>

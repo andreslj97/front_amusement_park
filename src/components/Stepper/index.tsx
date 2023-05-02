@@ -23,7 +23,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.FechaVisita
             ? (
               <>
-                <div className='btn-round-medium bg-blue'>
+                <div className='btn-round-medium text-base bg-blue'>
                   Fecha de visita
                 </div>
                 {StepsName.FechaVisita}
@@ -31,7 +31,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )
             : (
               <>
-                <div className='btn-round-medium bg-yellow'>
+                <div className='btn-round-medium text-base bg-yellow'>
                   Fecha de visita
                 </div>
                 {StepsName.FechaVisita}
@@ -39,7 +39,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )}
         </button>
       </div>
-      <span className='w-10 h-1 border-2 border-yellow' />
+      <span className='w-10 h-1 border-2 text-base border-yellow' />
       <div className=''>
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
@@ -49,7 +49,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.MejoraExperiencia
             ? (
               <>
-                <div className='btn-round-medium bg-blue'>
+                <div className='btn-round-medium text-base bg-blue'>
                   Mejora tu experiencia
                 </div>
                 {StepsName.MejoraExperiencia}
@@ -57,7 +57,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )
             : (
               <>
-                <div className='btn-round-medium bg-yellow'>
+                <div className='btn-round-medium text-base bg-yellow'>
                   Mejora tu experiencia
                 </div>
                 {StepsName.MejoraExperiencia}
@@ -65,7 +65,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )}
         </button>
       </div>
-      <span className='w-10 h-1 border-2 border-yellow' />
+      <span className='w-10 h-1 border-2 text-base border-yellow' />
       <div className=''>
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
@@ -75,7 +75,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.DatosCompra
             ? (
               <>
-                <div className='btn-round-medium bg-blue'>
+                <div className='btn-round-medium text-base bg-blue'>
                   Datos de compra
                 </div>
                 {StepsName.DatosCompra}
@@ -83,7 +83,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )
             : (
               <>
-                <div className='btn-round-medium bg-yellow'>
+                <div className='btn-round-medium text-base bg-yellow'>
                   Datos de compra
                 </div>
                 {StepsName.DatosCompra}
@@ -91,7 +91,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )}
         </button>
       </div>
-      <span className='w-10 h-1 border-2 border-yellow' />
+      <span className='w-10 h-1 border-2 text-base border-yellow' />
       <div className=''>
         <button
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
@@ -101,7 +101,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
           {step < StepsName.FinalizaCompra
             ? (
               <>
-                <div className='btn-round-medium bg-blue'>
+                <div className='btn-round-medium text-base bg-blue'>
                   Finalizar compra
                 </div>
                 {StepsName.FinalizaCompra}
@@ -109,7 +109,7 @@ export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
               )
             : (
               <>
-                <div className='btn-round-medium bg-yellow'>
+                <div className='btn-round-medium text-base bg-yellow'>
                   Finalizar compra
                 </div>
                 {StepsName.FinalizaCompra}
