@@ -19,6 +19,12 @@ export interface ItemTicket {
   description: string
 }
 
+export interface ItemExperience {
+  id: number
+  description: string
+  total: number
+}
+
 export interface Order {
   id: string
   tickets: Tickets

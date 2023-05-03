@@ -22,3 +22,21 @@ export const listTickets = [
     description: 'Diseñado para los más chiquitos de nuestras familias, incluye una amplia variedad de atracciones infantiles y familiares.'
   }
 ]
+
+export const listExperience = [
+  {
+    id: 4,
+    description: 'Adicional a tu pasaporte. No cubre Karts, Chocones ni Castillo del Terror',
+    total: 40000
+  },
+  {
+    id: 5,
+    description: 'Si la lluvia llego, puedes adquirir tu seguro de lluvia, que te premitira regresar al parque cuando las condiciones mejoren. "Este bono cuenta con una vigencia de un mes para hacerse efectivo".',
+    total: 8000
+  },
+  {
+    id: 6,
+    description: 'Combo pizza margarita + Gaseosa 250ml',
+    total: 30000
+  }
+]
