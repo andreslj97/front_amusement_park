@@ -15,9 +15,11 @@ export default function Home (): JSX.Element {
       <Menu>
         {listMenu}
       </Menu>
-      <Banner />
-      <Stepper setStep={setStep} step={step} />
-      <Steps step={step} setStep={setStep} />
+      <section className='m-20'>
+        <Banner />
+        <Stepper setStep={setStep} step={step} />
+        <Steps step={step} setStep={setStep} />
+      </section>
     </>
   )
 }

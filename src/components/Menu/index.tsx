@@ -5,7 +5,7 @@ import type { MenuItem, propsWithChildren } from './types'
 const Menu = ({ children }: propsWithChildren): JSX.Element => {
   return (
     <div
-      className={`flex absolute w-screen px-[5rem] py-[1rem]
+      className={`flex absolute w-[100%] px-[5rem] py-[1rem]
       ${children.position === 'Top' ? 'top-0' : 'bottom-0'}
       ${children.direction === 'Right' ? 'flex-row' : 'flex-row-reverse'}`}
       style={{ color: children.textColor, backgroundColor: children.backgroundColor }}

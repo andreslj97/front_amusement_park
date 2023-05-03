@@ -12,7 +12,7 @@ const raleway = Raleway({
 
 export default function App ({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <main className={`${raleway.className} m-20`}>
+    <main className={`${raleway.className}`}>
       <Component {...pageProps} />
     </main>
   )
