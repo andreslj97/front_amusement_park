@@ -8,6 +8,24 @@ export interface StepperProps {
   step: number
 }
 
+export interface Step {
+  activo: boolean
+  nombre: string
+  ofertas: Offer[]
+}
+
+export interface Offer {
+  nombre: string
+  tipo: 'Calendario' | 'Datos' | 'Finalizar'
+  tickets?: Ticket[]
+}
+
+export interface Ticket {
+  id: number
+  url: string
+  description: string
+}
+
 export enum StepsName {
   FechaVisita = 0,
   MejoraExperiencia = 1,

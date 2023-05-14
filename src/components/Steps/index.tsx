@@ -1,4 +1,5 @@
 import { StepperProps, StepsName } from '../../types'
+import { listSteps } from '../../../public/listConfig/list'
 
 // Components
 import StepDate from './StepDate'
@@ -7,8 +8,9 @@ import StepPayment from './StepPayment'
 import StepFinish from './StepFinish'
 
 const Steps = ({ setStep, step }: StepperProps): JSX.Element => {
-  // Add context status to manage steps !
-
+  // Evento activo !
+  const stepActive = listSteps.filter((x) => x.activo)[0] ?? []
+  console.log(stepActive)
   return (
     <>
       {step === StepsName.FechaVisita

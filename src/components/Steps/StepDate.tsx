@@ -1,17 +1,17 @@
 import React from 'react'
-import { StepperProps, ItemTicket } from '../../types'
+import { StepperProps } from '../../types'
 import Button from './Button'
-import Image from 'next/image'
+// import Image from 'next/image'
 
-import ImgTicket1 from '../../../public/Images/ticket1.png'
-import ImgTicket2 from '../../../public/Images/ticket2.png'
-import ImgTicket3 from '../../../public/Images/ticket3.png'
+// import ImgTicket1 from '../../../public/Images/ticket1.png'
+// import ImgTicket2 from '../../../public/Images/ticket2.png'
+// import ImgTicket3 from '../../../public/Images/ticket3.png'
 
 import { format } from 'date-fns'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 
-import { listTickets } from '../../../public/listConfig/list'
+// import { listTickets } from '../../../public/listConfig/list'
 
 const StepDate = ({ setStep, step }: StepperProps): JSX.Element => {
   const [selected, setSelected] = React.useState<Date>()
@@ -35,7 +35,7 @@ const StepDate = ({ setStep, step }: StepperProps): JSX.Element => {
           />
         </div>
         <div className='w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
-          {listTickets.map((itemTicket: ItemTicket, index: number) => (
+          {/* {listTickets.map((itemTicket: ItemTicket, index: number) => (
             <div key={itemTicket.description} className='w-[100%] flex justify-evenly items-center'>
               {index === 0
                 ? <Image
@@ -56,7 +56,7 @@ const StepDate = ({ setStep, step }: StepperProps): JSX.Element => {
                     />}
               <div className='max-w-[60%] text-base font-thin'>{itemTicket.description}</div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
       <Button fnOnclick={onSubmit} text='Continuar' />
