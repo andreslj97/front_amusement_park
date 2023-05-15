@@ -6,6 +6,7 @@ export interface ButtonType {
 export interface StepperProps {
   setStep: React.Dispatch<React.SetStateAction<number>>
   step: number
+  offer?: Offer
 }
 
 export interface Step {
@@ -22,6 +23,8 @@ export interface Offer {
 
 export interface Ticket {
   id: number
+  precio_full: number
+  precio_descuento: number
   url: string
   description: string
 }
@@ -34,6 +37,8 @@ export enum StepsName {
 }
 
 export interface ItemTicket {
+  precio_full: number
+  precio_descuento: number
   description: string
 }
 
