@@ -64,6 +64,7 @@ Temporary Items
 
 # production
 /build
+/public/sw.js.map
 
 # misc
 *.pem
@@ -122,6 +123,7 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
+*.map
 
 # Windows shortcuts
 *.lnk
