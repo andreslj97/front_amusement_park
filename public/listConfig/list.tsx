@@ -11,15 +11,74 @@ export const listMenu = {
   ]
 }
 
-export const listTickets = [
+export const listSteps = [
   {
-    description: 'Vive la mágica experiencia del Salitre Mágico con todas las atracciones del parque incluyendo el ingreso por primera vez al Castillo del Terror, Carros chocones y Pista de karts.'
-  },
-  {
-    description: 'Incluye todas las atracciones del parque excepto Karts, Chocones y Castillo del terror.'
-  },
-  {
-    description: 'Diseñado para los más chiquitos de nuestras familias, incluye una amplia variedad de atracciones infantiles y familiares.'
+    activo: true,
+    nombre: 'Día de la madre',
+    ofertas: [
+      {
+        nombre: 'Fecha de visita',
+        tipo: 'Calendario' as 'Calendario',
+        tickets: [
+          {
+            id: 1,
+            precio_full: 53900,
+            precio_descuento: 84900,
+            url: 'url imagen',
+            description: 'Vive la mágica experiencia del Salitre Mágico con todas las atracciones del parque incluyendo el ingreso por primera vez al Castillo del Terror, Carros chocones y Pista de karts.'
+          },
+          {
+            id: 2,
+            precio_full: 59900,
+            precio_descuento: 39900,
+            url: 'url imagen',
+            description: 'Incluye todas las atracciones del parque excepto Karts, Chocones y Castillo del terror.'
+          },
+          {
+            id: 3,
+            precio_full: 29900,
+            precio_descuento: 24900,
+            url: 'url imagen',
+            description: 'Diseñado para los más chiquitos de nuestras familias, incluye una amplia variedad de atracciones infantiles y familiares.'
+          }
+        ]
+      },
+      {
+        nombre: 'Mejora tu visita',
+        tipo: 'Calendario' as 'Calendario',
+        tickets: [
+          {
+            id: 1,
+            precio_full: 0,
+            precio_descuento: 40000,
+            url: 'url imagen',
+            description: 'Adicional a tú pasaporte, no incluye Karts, Chocones ni Castillo del terror.'
+          },
+          {
+            id: 2,
+            precio_full: 0,
+            precio_descuento: 8000,
+            url: 'url imagen',
+            description: 'Si la lluvia llegó, puedes adquirir tu seguro de lluvia que te permitirá regeresar al parque cuando las condiciones mejoren "Este bono cuenta con una vigencia de un mes para hacerce efectivo.".'
+          },
+          {
+            id: 3,
+            precio_full: 0,
+            precio_descuento: 30000,
+            url: 'url imagen',
+            description: 'Combo pizza margarita + gaseosa 250ml.'
+          }
+        ]
+      },
+      {
+        nombre: 'Datos de la compra',
+        tipo: 'Datos' as 'Datos'
+      },
+      {
+        nombre: 'Finalizar la compra',
+        tipo: 'Finalizar' as 'Finalizar'
+      }
+    ]
   }
 ]
 

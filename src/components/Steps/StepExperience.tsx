@@ -10,7 +10,7 @@ import ImgTicket3 from '../../../public/Images/ticket3.png'
 
 // Components
 import { StepperProps, ItemExperience } from '../../types'
-import Button from './Button'
+import { ButtonReturn, ButtonSuccess } from './Button'
 import { listExperience } from '../../../public/listConfig/list'
 
 // Helpers
@@ -70,8 +70,10 @@ const StepExperience = ({ setStep, step }: StepperProps): JSX.Element => {
           ))}
         </div>
       </div>
-      <Button fnOnclick={prevStep} text='Atrás' />
-      <Button fnOnclick={onSubmit} text='Continuar' />
+      <div className='flex justify-content-end'>
+        <ButtonReturn fnOnclick={prevStep} text='Atrás' />
+        <ButtonSuccess fnOnclick={onSubmit} text='Continuar' />
+      </div>
     </>
   )
 }
