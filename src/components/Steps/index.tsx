@@ -1,12 +1,13 @@
-import { StepperProps } from '../../types'
 import { listSteps } from '../../../public/listConfig/list'
 
 // Components
 import StepDate from './StepDate'
 import StepPayment from './StepPayment'
 import StepFinish from './StepFinish'
+import { useStep } from '../../hooks/useStep'
 
-const Steps = ({ setStep, step }: StepperProps): JSX.Element => {
+const Steps = (): JSX.Element => {
+  const { step } = useStep()
   // Evento activo !
   const offers = listSteps.filter((x) => x.activo)[0].ofertas ?? []
   const offer = offers[step]
@@ -15,11 +16,11 @@ const Steps = ({ setStep, step }: StepperProps): JSX.Element => {
     <>
       {
         offer.tipo === 'Calendario'
-          ? <StepDate key={offer.nombre} step={step} setStep={setStep} offer={offer} />
+          ? <StepDate key={offer.nombre} offer={offer} />
           : offer.tipo === 'Datos'
-            ? <StepPayment key={offer.nombre} step={step} setStep={setStep} />
+            ? <StepPayment key={offer.nombre} />
             : offer.tipo === 'Finalizar' &&
-              <StepFinish key={offer.nombre} step={step} setStep={setStep} />
+              <StepFinish key={offer.nombre} />
       }
     </>
   )

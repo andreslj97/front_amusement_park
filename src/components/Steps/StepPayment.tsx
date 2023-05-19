@@ -1,12 +1,13 @@
-import { StepperProps } from '../../types'
 import { ButtonSuccess, ButtonReturn } from './Button'
+import { useStep } from '../../hooks/useStep'
 
-const StepPayment = ({ setStep, step }: StepperProps): JSX.Element => {
+const StepPayment = (): JSX.Element => {
+  const { addStep, prevStep: prevStepState } = useStep()
   const onSubmit = (): void => {
-    setStep((currentStep) => currentStep + 1)
+    addStep()
   }
   const prevStep = (): void => {
-    setStep((currentStep) => currentStep - 1)
+    prevStepState()
   }
   return (
     <>

@@ -1,14 +1,16 @@
 import React from 'react'
 import { listSteps } from '../../../public/listConfig/list'
-import { StepperProps, Offer } from '../../types'
+import { Offer } from '../../types'
+import { useStep } from '../../hooks/useStep'
 
-export const Stepper = ({ setStep, step }: StepperProps): JSX.Element => {
+export const Stepper = (): JSX.Element => {
+  const { step, changeStep } = useStep()
   const stepActive = listSteps.filter((x) => x.activo)[0] ?? []
   const handleSetStep = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     index: number
   ): void => {
-    setStep(Number(index))
+    changeStep(Number(index))
   }
 
   return (

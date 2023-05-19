@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { IntlProvider } from 'react-intl'
 
 // Components
@@ -15,7 +14,7 @@ const messagesEs = {
 }
 
 export default function Home (): JSX.Element {
-  const [step, setStep] = useState<number>(0)
+  // const [step, setStep] = useState<number>(0)
   return (
     <>
       <IntlProvider messages={messagesEs} locale='es' defaultLocale='es'>
@@ -24,8 +23,8 @@ export default function Home (): JSX.Element {
         </Menu>
         <section className='m-20'>
           <Banner />
-          <Stepper setStep={setStep} step={step} />
-          <Steps step={step} setStep={setStep} />
+          <Stepper />
+          <Steps />
         </section>
       </IntlProvider>
     </>

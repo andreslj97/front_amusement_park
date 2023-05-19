@@ -4,8 +4,6 @@ export interface ButtonType {
 }
 
 export interface StepperProps {
-  setStep: React.Dispatch<React.SetStateAction<number>>
-  step: number
   offer?: Offer
 }
 

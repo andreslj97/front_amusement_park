@@ -13,19 +13,22 @@ import { format } from 'date-fns'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 
+import { useStep } from '../../hooks/useStep'
+
 const messagesEs = {
   Alert: 'Ha ocurrido un problema'
 }
 
-const StepDate = ({ setStep, step, offer }: StepperProps): JSX.Element => {
+const StepDate = ({ offer }: StepperProps): JSX.Element => {
+  const { step, addStep, prevStep: prevStepState } = useStep()
   const [num, setNum] = useState(0)
   const [selected, setSelected] = React.useState<Date>()
   const tickets = offer?.tickets ?? []
   const onSubmit = (): void => {
-    setStep((currentStep) => currentStep + 1)
+    addStep()
   }
   const prevStep = (): void => {
-    setStep((currentStep) => currentStep - 1)
+    prevStepState()
   }
   const incNum = (): void => {
     if (num < 10) {
@@ -48,7 +51,7 @@ const StepDate = ({ setStep, step, offer }: StepperProps): JSX.Element => {
   }
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
-      <div className='flex justify-center m-4 border-blue-900 border-solid border-2 rounded-2xl font-bold p-2 bg-blue-900'>
+      <div className='flex justify-center m-4 border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
         <div className='w-[50%] flex justify-center'>
           <DayPicker
             mode='single'

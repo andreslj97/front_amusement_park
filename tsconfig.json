@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/context/stepContext.jsx", "src/context/typesContext.jsx", "src/reducers/stepReducer.jsx"],
   "exclude": ["node_modules"]
 }

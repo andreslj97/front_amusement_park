@@ -1,9 +1,10 @@
-import { StepperProps } from '../../types'
 import { ButtonReturn } from './Button'
+import { useStep } from '../../hooks/useStep'
 
-const StepFinish = ({ setStep, step }: StepperProps): JSX.Element => {
+const StepFinish = (): JSX.Element => {
+  const { addStep } = useStep()
   const prevStep = (): void => {
-    setStep((currentStep) => currentStep - 1)
+    addStep()
   }
   return (
     <>
