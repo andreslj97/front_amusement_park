@@ -9,6 +9,9 @@ import Steps from '../components/Steps'
 // Data
 import { listMenu } from '../../public/listConfig/list'
 
+// Provider
+import { OrderProvider } from '../context/orderContext'
+
 const messagesEs = {
   Alert: 'Ha ocurrido un problema'
 }
@@ -23,8 +26,10 @@ export default function Home (): JSX.Element {
         </Menu>
         <section className='m-20'>
           <Banner />
-          <Stepper />
-          <Steps />
+          <OrderProvider>
+            <Stepper />
+            <Steps />
+          </OrderProvider>
         </section>
       </IntlProvider>
     </>
