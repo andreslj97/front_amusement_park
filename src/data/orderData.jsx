@@ -1,8 +1,11 @@
-import { listSteps } from '../../public/listConfig/list' // Fetch
+import { listSteps } from '../../public/listConfig/list'
 
+// Filter
 let tickets = null
 const orderData = {
-  items: []
+  items: [],
+  dates: {},
+  total: 0
 }
 const listFilter = listSteps.filter((list) => {
   return list.activo === true

@@ -11,14 +11,20 @@ export const OrderContext = createContext()
 const useOrderReducer = () => {
   const [state, dispatch] = useReducer(orderReducer, orderInitialState)
 
-  const addItem = item => dispatch({
+  const addItem = (item, section) => dispatch({
     type: 'ADD_ITEM',
-    payload: item
+    payload: {
+      item,
+      section
+    }
   })
 
-  const removeItem = item => dispatch({
+  const removeItem = (item, section) => dispatch({
     type: 'REMOVE_ITEM',
-    payload: item
+    payload: {
+      item,
+      section
+    }
   })
 
   return { state, addItem, removeItem }

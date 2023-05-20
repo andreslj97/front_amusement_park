@@ -13,15 +13,34 @@ import { format } from 'date-fns'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 
+// Hooks
 import { useStep } from '../../hooks/useStep'
+import { useOrder } from '../../hooks/useOrder'
 
 const messagesEs = {
   Alert: 'Ha ocurrido un problema'
 }
 
+const quantityItem = (itemTicket: any, order: any): any => {
+  if (order.items.length > 0) {
+    const filterItems = order.items.find((item: any) => item.id === itemTicket.id)
+
+    if (filterItems === undefined) {
+      return itemTicket.quantity
+    }
+
+    return filterItems.quantity
+  }
+
+  return itemTicket.quantity
+}
+
 const StepDate = ({ offer }: StepperProps): JSX.Element => {
-  // Context orderForm => []
+  // Context
   const { step, addStep, prevStep: prevStepState } = useStep()
+  const { order, addItem, removeItem } = useOrder()
+  console.log('Order State', order)
+
   const [num, setNum] = useState(0)
   const [selected, setSelected] = React.useState<Date>()
   const tickets = offer?.tickets ?? []
@@ -31,15 +50,11 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   const prevStep = (): void => {
     prevStepState()
   }
-  const incNum = (): void => {
-    if (num < 10) {
-      setNum(Number(num) + 1)
-    }
+  const incNum = (item: any): any => {
+    addItem(item, 'Fecha de visita')
   }
-  const decNum = (): void => {
-    if (num > 0) {
-      setNum(num - 1)
-    }
+  const decNum = (item: any): any => {
+    removeItem(item, 'Fecha de visita')
   }
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     // Object
@@ -66,7 +81,7 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
         <div className='w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[-11px] relative'>{offer?.nombre}</div>
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>Fecha de visita</div>
-          {tickets.map((itemTicket: ItemTicket, index: number) => (
+          {tickets.map((itemTicket: any, index: number) => (
             <div key={itemTicket.description} className='w-[100%] flex justify-evenly items-center'>
               {index === 0
                 ? <Image
@@ -96,11 +111,11 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
                 </div>
                 <div className='flex align-center justify-center'>
                   <div className=''>
-                    <button className='' type='button' onClick={decNum}>-</button>
+                    <button className='' type='button' onClick={() => decNum(itemTicket)}>-</button>
                   </div>
-                  <input className='w-[35px] mx-[0.5rem] text-center border-solid border-2' type='text' value={num} onChange={handleChange} />
+                  <input className='w-[35px] mx-[0.5rem] text-center border-solid border-2' type='text' value={quantityItem(itemTicket, order)} onChange={handleChange} />
                   <div className=''>
-                    <button className='' type='button' onClick={incNum}>+</button>
+                    <button className='' type='button' onClick={() => incNum(itemTicket)}>+</button>
                   </div>
                 </div>
               </div>

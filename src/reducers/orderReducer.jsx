@@ -1,5 +1,8 @@
+// Order Data
+import orderData from '../data/orderData'
+
 // Inital State
-export const orderInitialState = {}
+export const orderInitialState = orderData
 
 // Actions
 export const ORDER_ACTIONS_TYPES = {
@@ -12,10 +15,51 @@ export const orderReducer = (state, action) => {
 
   switch (actionType) {
     case ORDER_ACTIONS_TYPES.ADD_ITEM: {
-      return {}
+      const { item, section } = actionPayload
+
+      const newState = {
+        ...state
+      }
+
+      const indexItem = newState.items.findIndex(itemIndex => itemIndex.id === item.id)
+
+      if (indexItem !== -1) {
+        newState.items[indexItem].quantity += 1
+      } else {
+        // Add quantity
+        item.quantity += 1
+
+        // Push new item
+        newState.items.push(item)
+      }
+
+      // Add total
+      newState[section].total += item.precio_descuento
+      newState.total += item.precio_descuento
+
+      return newState
     }
     case ORDER_ACTIONS_TYPES.REMOVE_ITEM: {
-      return {}
+      const { item, section } = actionPayload
+
+      const newState = {
+        ...state
+      }
+
+      const indexItem = newState.items.findIndex(itemIndex => itemIndex.id === item.id)
+
+      if (indexItem !== -1) {
+        // Rest quantity
+        newState.items[indexItem].quantity -= 1
+      } else {
+        return newState
+      }
+
+      // Add total
+      newState[section].total -= item.precio_descuento
+      newState.total -= item.precio_descuento
+
+      return newState
     }
   }
 }
