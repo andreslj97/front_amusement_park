@@ -20,6 +20,7 @@ const messagesEs = {
 }
 
 const StepDate = ({ offer }: StepperProps): JSX.Element => {
+  // Context orderForm => []
   const { step, addStep, prevStep: prevStepState } = useStep()
   const [num, setNum] = useState(0)
   const [selected, setSelected] = React.useState<Date>()
@@ -41,6 +42,8 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
     }
   }
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
+    // Object
+
     const quantity = Number(e.currentTarget.value)
     if (isNaN(quantity)) return
     setNum(quantity)

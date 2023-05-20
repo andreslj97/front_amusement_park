@@ -1,7 +1,9 @@
-import { listSteps } from '../../public/listConfig/list'
+import { listSteps } from '../../public/listConfig/list' // Fetch
 
 let tickets = null
-const orderData = {}
+const orderData = {
+  items: []
+}
 const listFilter = listSteps.filter((list) => {
   return list.activo === true
 })
@@ -13,7 +15,7 @@ listFilter.forEach(item => {
 })
 
 tickets.forEach(item => {
-  orderData[item.nombre] = item.tickets
+  orderData[item.nombre] = { total: 0 }
 })
 
 export default orderData

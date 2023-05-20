@@ -17,7 +17,6 @@ const messagesEs = {
 }
 
 export default function Home (): JSX.Element {
-  // const [step, setStep] = useState<number>(0)
   return (
     <>
       <IntlProvider messages={messagesEs} locale='es' defaultLocale='es'>
