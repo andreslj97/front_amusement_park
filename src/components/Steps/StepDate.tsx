@@ -24,14 +24,13 @@ const messagesEs = {
 const quantityItem = (itemTicket: any, order: any): any => {
   if (order.items.length > 0) {
     const filterItems = order.items.find((item: any) => item.id === itemTicket.id)
-
+    console.log('ITEM:', itemTicket);
+    console.log('FILTER ITEM:', filterItems);
     if (filterItems === undefined) {
-      return itemTicket.quantity
+      return 0
     }
-
     return filterItems.quantity
   }
-
   return itemTicket.quantity
 }
 
