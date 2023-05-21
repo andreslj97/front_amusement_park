@@ -4,7 +4,14 @@ import { listSteps } from '../../public/listConfig/list'
 let tickets = null
 const orderData = {
   items: [],
-  dates: {},
+  dates: {
+    name: '',
+    lastname: '',
+    city: '',
+    typeID: '',
+    email: '',
+    phone: ''
+  },
   total: 0
 }
 const listFilter = listSteps.filter((list) => {

@@ -11,7 +11,6 @@ const Steps = (): JSX.Element => {
   // Evento activo !
   const offers = listSteps.filter((x) => x.activo)[0].ofertas ?? []
   const offer = offers[step]
-  console.log('NUEVA OFERTA:', offer)
   return (
     <>
       {

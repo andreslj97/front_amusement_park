@@ -27,19 +27,25 @@ const useOrderReducer = () => {
     }
   })
 
-  return { state, addItem, removeItem }
+  const updateData = (data) => dispatch({
+    type: 'UPDATE_DATES',
+    payload: data
+  })
+
+  return { state, addItem, removeItem, updateData }
 }
 
 // Create provider
 export const OrderProvider = ({ children }) => {
-  const { state, addItem, removeItem } = useOrderReducer()
+  const { state, addItem, removeItem, updateData } = useOrderReducer()
 
   return (
     <OrderContext.Provider
       value={{
         order: state,
         addItem,
-        removeItem
+        removeItem,
+        updateData
       }}
     >
       {children}

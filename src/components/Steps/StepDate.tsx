@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FormattedNumber, IntlProvider } from 'react-intl'
 
 import { StepperProps } from '../../types'
@@ -24,14 +24,12 @@ const messagesEs = {
 const quantityItem = (itemTicket: any, order: any): any => {
   if (order.items.length > 0) {
     const filterItems = order.items.find((item: any) => item.id === itemTicket.id)
-    console.log('ITEM:', itemTicket)
-    console.log('FILTER ITEM:', filterItems)
     if (filterItems === undefined) {
       return 0
     }
     return filterItems.quantity
   }
-  return itemTicket.quantity
+  return 0
 }
 
 const StepDate = ({ offer }: StepperProps): JSX.Element => {
@@ -39,9 +37,6 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   const { step, addStep, prevStep: prevStepState } = useStep()
   const { order, addItem, removeItem } = useOrder()
   console.log('Order State', order)
-
-  const [num, setNum] = useState(0)
-  console.log(num)
   const [selected, setSelected] = React.useState<Date>()
   const tickets = offer?.tickets ?? []
   const onSubmit = (): void => {
@@ -51,17 +46,10 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
     prevStepState()
   }
   const incNum = (item: any): any => {
-    addItem(item, 'Fecha de visita')
+    addItem(item, offer?.nombre)
   }
   const decNum = (item: any): any => {
-    removeItem(item, 'Fecha de visita')
-  }
-  const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
-    // Object
-
-    const quantity = Number(e.currentTarget.value)
-    if (isNaN(quantity)) return
-    setNum(quantity)
+    removeItem(item, offer?.nombre)
   }
   let footer = <p>Please pick a day.</p>
   if (selected != null) {
@@ -111,9 +99,9 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
                 </div>
                 <div className='flex align-center justify-center'>
                   <div className=''>
-                    <button className='' type='button' onClick={() => decNum(itemTicket)}>-</button>
+                    <button className='' type='button' disabled={quantityItem(itemTicket, order) === 0} onClick={() => decNum(itemTicket)}>-</button>
                   </div>
-                  <input className='w-[35px] mx-[0.5rem] text-center border-solid border-2' type='text' value={quantityItem(itemTicket, order)} onChange={handleChange} />
+                  <input className='w-[35px] mx-[0.5rem] text-center border-solid border-2' type='text' value={quantityItem(itemTicket, order)} readOnly />
                   <div className=''>
                     <button className='' type='button' onClick={() => incNum(itemTicket)}>+</button>
                   </div>

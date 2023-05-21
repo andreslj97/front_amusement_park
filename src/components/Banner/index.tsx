@@ -2,7 +2,7 @@
 import Image from 'next/image'
 
 // Image
-import BannerImage from '../../../public/banner.png'
+import BannerImage from '../../../public/banner.jpg'
 
 const Banner = (): JSX.Element => (
   <>
