@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormattedNumber, IntlProvider } from 'react-intl'
 
-import { StepperProps, ItemTicket } from '../../types'
+import { StepperProps } from '../../types'
 import { ButtonSuccess, ButtonReturn } from './Button'
 import Image from 'next/image'
 
@@ -24,8 +24,8 @@ const messagesEs = {
 const quantityItem = (itemTicket: any, order: any): any => {
   if (order.items.length > 0) {
     const filterItems = order.items.find((item: any) => item.id === itemTicket.id)
-    console.log('ITEM:', itemTicket);
-    console.log('FILTER ITEM:', filterItems);
+    console.log('ITEM:', itemTicket)
+    console.log('FILTER ITEM:', filterItems)
     if (filterItems === undefined) {
       return 0
     }
@@ -41,6 +41,7 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   console.log('Order State', order)
 
   const [num, setNum] = useState(0)
+  console.log(num)
   const [selected, setSelected] = React.useState<Date>()
   const tickets = offer?.tickets ?? []
   const onSubmit = (): void => {
