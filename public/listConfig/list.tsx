@@ -51,7 +51,7 @@ export const listSteps = [
         tipo: 'Calendario' as 'Calendario',
         tickets: [
           {
-            id: 1,
+            id: 3,
             precio_full: 0,
             precio_descuento: 40000,
             url: 'url imagen',
@@ -59,7 +59,7 @@ export const listSteps = [
             quantity: 0
           },
           {
-            id: 2,
+            id: 4,
             precio_full: 0,
             precio_descuento: 8000,
             url: 'url imagen',
@@ -67,7 +67,7 @@ export const listSteps = [
             quantity: 0
           },
           {
-            id: 3,
+            id: 5,
             precio_full: 0,
             precio_descuento: 30000,
             url: 'url imagen',

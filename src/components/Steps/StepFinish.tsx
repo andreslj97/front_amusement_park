@@ -2,9 +2,9 @@ import { ButtonReturn } from './Button'
 import { useStep } from '../../hooks/useStep'
 
 const StepFinish = (): JSX.Element => {
-  const { addStep } = useStep()
+  const { prevStep: prevStepState } = useStep()
   const prevStep = (): void => {
-    addStep()
+    prevStepState()
   }
   return (
     <>
