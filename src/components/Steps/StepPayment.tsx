@@ -5,7 +5,7 @@ import esLocale from 'date-fns/locale/es'
 import { useStep } from '../../hooks/useStep'
 import { useOrder } from '../../hooks/useOrder'
 import Image from 'next/image'
-import { listSteps } from '../../../public/listConfig/list'
+// import { listSteps } from '../../../public/listConfig/list'
 import ImgTicket1 from '../../../public/Images/ticket1.png'
 import ImgTicket2 from '../../../public/Images/ticket2.png'
 import ImgTicket3 from '../../../public/Images/ticket3.png'
@@ -15,8 +15,8 @@ import { regExpInputs } from '../../utils/regExp'
 const StepPayment = (): JSX.Element => {
   const { order, updateData }: any = useOrder()
   const { dates } = order
-  const { dates: { name, lastname, city, typeID, email, phone } } = order
-  const { addStep, prevStep: prevStepState } = useStep()
+  const { dates: { name, lastname, city, email, phone } } = order
+  const { prevStep: prevStepState } = useStep()
   const [errorValidate, setError] = useState({
     errorName: true,
     errorLastname: true,
@@ -24,16 +24,16 @@ const StepPayment = (): JSX.Element => {
     errorEmail: true,
     errorPhone: true
   })
-  const listFilter = listSteps.filter((list) => {
-    return list.activo
-  })
-  let tickets: any = []
+  // const listFilter = listSteps.filter((list) => {
+  //   return list.activo
+  // })
+  // let tickets: any = []
 
-  listFilter.forEach(item => {
-    const { ofertas } = item
-    const findTickets = ofertas.filter(ticket => ticket.tickets !== undefined)
-    tickets = findTickets
-  })
+  // listFilter.forEach(item => {
+  //   const { ofertas } = item
+  //   const findTickets = ofertas.filter(ticket => ticket.tickets !== undefined)
+  //   tickets = findTickets
+  // })
   const validateData = (): void => {
     if (regExpInputs.regExpUserName.test(dates.name.replaceAll(' ', '')) && dates.name !== '') {
       setError({ ...errorValidate, errorName: false })
