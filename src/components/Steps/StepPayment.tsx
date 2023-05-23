@@ -122,7 +122,7 @@ const StepPayment = (): JSX.Element => {
         </div>
         <div className='w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[-11px] relative'>Resumen de tu compra</div>
-          <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>Fecha de visita: {format(order.dateOfVisit, 'PPP', { locale: esLocale })}</div>
+          <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='h-[18rem] overflow-x-hidden overflow-y-auto'>
             {/* <p>{name}</p>
             <p>{lastname}</p>
