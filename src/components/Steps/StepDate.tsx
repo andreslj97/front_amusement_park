@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FormattedNumber, IntlProvider } from 'react-intl'
 
 import { StepperProps } from '../../types'
@@ -10,6 +10,7 @@ import ImgTicket2 from '../../../public/Images/ticket2.png'
 import ImgTicket3 from '../../../public/Images/ticket3.png'
 
 import { format } from 'date-fns'
+import esLocale from 'date-fns/locale/es'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 
@@ -35,11 +36,11 @@ const quantityItem = (itemTicket: any, order: any): any => {
 const StepDate = ({ offer }: StepperProps): JSX.Element => {
   // Context
   const { step, addStep, prevStep: prevStepState } = useStep()
-  const { order, addItem, removeItem } = useOrder()
-  console.log('Order State', order)
+  const { order, addItem, removeItem, updateDateVisit } = useOrder()
   const [selected, setSelected] = React.useState<Date>()
   const tickets = offer?.tickets ?? []
   const onSubmit = (): void => {
+    if (order.dateOfVisit === '') return
     addStep()
   }
   const prevStep = (): void => {
@@ -51,64 +52,88 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   const decNum = (item: any): any => {
     removeItem(item, offer?.nombre)
   }
-  let footer = <p>Please pick a day.</p>
-  if (selected != null) {
-    footer = <p>You picked {format(selected, 'PP')}.</p>
-  }
+  useEffect(() => {
+    if (selected != null) {
+      updateDateVisit(selected)
+    }
+    console.log('Order State', order)
+  }, [selected])
+
+  let footer = <p>Seleccione el día de visita.</p>
+  console.log('Order State', order)
+  order.dateOfVisit === ''
+    ? footer = <p>Selecciona tu fecha de visita.</p>
+    : footer = <p>La fecha de visita es: {format(order.dateOfVisit, 'PPP', { locale: esLocale })}.</p>
+
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
       <div className='flex justify-center m-4 border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
         <div className='w-[50%] flex justify-center'>
           <DayPicker
+            locale={esLocale}
             mode='single'
-            selected={selected}
+            selected={order.dateOfVisit}
             onSelect={setSelected}
             footer={footer}
           />
         </div>
         <div className='w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[-11px] relative'>{offer?.nombre}</div>
-          <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>Fecha de visita</div>
-          {tickets.map((itemTicket: any, index: number) => (
-            <div key={itemTicket.description} className='w-[100%] flex justify-evenly items-center'>
-              {index === 0
-                ? <Image
-                    src={ImgTicket1}
-                    alt='user profile picture'
-                    width={121}
-                  />
-                : index === 1
+          <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
+          <div className='max-h-[18rem] overflow-x-hidden overflow-y-auto'>
+            {tickets.map((itemTicket: any, index: number) => (
+              <div key={itemTicket.description} className='w-[100%] flex justify-evenly items-center'>
+                {index === 0
                   ? <Image
-                      src={ImgTicket2}
+                      src={ImgTicket1}
                       alt='user profile picture'
                       width={121}
                     />
-                  : <Image
-                      src={ImgTicket3}
-                      alt='user profile picture'
-                      width={121}
-                    />}
-              <div className='max-w-[60%] text-base font-thin pr-[8px]'>{itemTicket.description}</div>
-              <div className='max-w-[20%]'>
-                <div>
-                  {itemTicket.precio_full !== 0 &&
-                    <div className='text-[#8B8A8A] line-through'>
-                      <FormattedNumber value={itemTicket.precio_full} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
-                    </div>}
-                  <div className=''><FormattedNumber value={itemTicket.precio_descuento} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} /></div>
-                </div>
-                <div className='flex align-center justify-center'>
-                  <div className=''>
-                    <button className='' type='button' disabled={quantityItem(itemTicket, order) === 0} onClick={() => decNum(itemTicket)}>-</button>
+                  : index === 1
+                    ? <Image
+                        src={ImgTicket2}
+                        alt='user profile picture'
+                        width={121}
+                      />
+                    : <Image
+                        src={ImgTicket3}
+                        alt='user profile picture'
+                        width={121}
+                      />}
+                <div className='w-[60%] text-base font-thin pr-[8px]'>{itemTicket.description}</div>
+                <div className='max-w-[20%]'>
+                  <div>
+                    {itemTicket.precio_full !== 0 &&
+                      <div className='text-[#8B8A8A] line-through'>
+                        <FormattedNumber value={itemTicket.precio_full} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
+                      </div>}
+                    <div className=''><FormattedNumber value={itemTicket.precio_descuento} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} /></div>
                   </div>
-                  <input className='w-[35px] mx-[0.5rem] text-center border-solid border-2' type='text' value={quantityItem(itemTicket, order)} readOnly />
-                  <div className=''>
-                    <button className='' type='button' onClick={() => incNum(itemTicket)}>+</button>
+                  <div className='flex align-center justify-center'>
+                    <div className=''>
+                      <button className='' type='button' disabled={quantityItem(itemTicket, order) === 0} onClick={() => decNum(itemTicket)}>-</button>
+                    </div>
+                    <input className='w-[35px] mx-[0.5rem] text-center border-solid border-2' type='text' value={quantityItem(itemTicket, order)} readOnly />
+                    <div className=''>
+                      <button className='' type='button' onClick={() => incNum(itemTicket)}>+</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          {order['Fecha de visita'].total !== 0 &&
+            <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[10px] relative'>
+              Boletos: <FormattedNumber value={order['Fecha de visita'].total} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
+            </div>}
+          {order['Mejora tu visita'].total !== 0 &&
+            <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[10px] border-t-2 relative'>
+              Adicionales: <FormattedNumber value={order['Mejora tu visita'].total} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
+            </div>}
+          {order.total !== 0 &&
+            <div className='bg-[#ADC03A] text-[#fff] text-center p-1 top-[10px] border-t-2 relative'>
+              Total: <FormattedNumber value={order.total} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
+            </div>}
         </div>
       </div>
       <div className='flex justify-content-end'>

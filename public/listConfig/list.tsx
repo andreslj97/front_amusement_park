@@ -43,6 +43,14 @@ export const listSteps = [
             url: 'url imagen',
             description: 'Diseñado para los más chiquitos de nuestras familias, incluye una amplia variedad de atracciones infantiles y familiares.',
             quantity: 0
+          },
+          {
+            id: 4,
+            precio_full: 53900,
+            precio_descuento: 84900,
+            url: 'url imagen',
+            description: 'Vive la mágica experiencia del Salitre Mágico con todas las atracciones del parque incluyendo el ingreso por primera vez al Castillo del Terror, Carros chocones y Pista de karts.',
+            quantity: 0
           }
         ]
       },

@@ -12,6 +12,7 @@ const orderData = {
     email: '',
     phone: ''
   },
+  dateOfVisit: '',
   total: 0
 }
 const listFilter = listSteps.filter((list) => {

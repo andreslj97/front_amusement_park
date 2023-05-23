@@ -6,6 +6,26 @@ body {
   background-image: url('../../public/background.png');
 }
 
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #20477D;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #D3DAE5;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #20477D;
+}
+
 @layer components {
   .bg-yellow {
       background-color: theme('colors[yellow]');

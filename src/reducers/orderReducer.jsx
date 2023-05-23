@@ -8,7 +8,8 @@ export const orderInitialState = orderData
 export const ORDER_ACTIONS_TYPES = {
   ADD_ITEM: 'ADD_ITEM',
   REMOVE_ITEM: 'REMOVE_ITEM',
-  UPDATE_DATES: 'UPDATE_DATES'
+  UPDATE_DATES: 'UPDATE_DATES',
+  DATE_VISIT: 'DATE_VISIT'
 }
 
 export const orderReducer = (state, action) => {
@@ -71,6 +72,13 @@ export const orderReducer = (state, action) => {
       const data = actionPayload
       const newState = structuredClone(state)
       newState.dates = data
+
+      return newState
+    }
+    case ORDER_ACTIONS_TYPES.DATE_VISIT: {
+      const dateOfVisit = actionPayload
+      const newState = structuredClone(state)
+      newState.dateOfVisit = dateOfVisit
 
       return newState
     }
