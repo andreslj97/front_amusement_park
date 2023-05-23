@@ -4,14 +4,14 @@ import { Offer } from '../../types'
 import { useStep } from '../../hooks/useStep'
 
 export const Stepper = (): JSX.Element => {
-  const { step, changeStep } = useStep()
+  const { step } = useStep()
   const stepActive = listSteps.filter((x) => x.activo)[0] ?? []
-  const handleSetStep = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    index: number
-  ): void => {
-    changeStep(Number(index))
-  }
+  // const handleSetStep = (
+  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  //   index: number
+  // ): void => {
+  //   changeStep(Number(index))
+  // }
 
   return (
     <div
@@ -20,8 +20,8 @@ export const Stepper = (): JSX.Element => {
       {stepActive.ofertas?.map((offerActive: Offer, index: number, row) => (
         <div key={offerActive.nombre} className='flex items-center'>
           <button
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              handleSetStep(e, index)}
+            // onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            //   handleSetStep(e, index)}
             className=''
           >
             {step < index

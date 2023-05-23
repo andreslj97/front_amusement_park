@@ -25,6 +25,7 @@ export const listSteps = [
             precio_full: 53900,
             precio_descuento: 84900,
             url: 'url imagen',
+            name: 'Pasaporte Nitro Plus',
             description: 'Vive la mágica experiencia del Salitre Mágico con todas las atracciones del parque incluyendo el ingreso por primera vez al Castillo del Terror, Carros chocones y Pista de karts.',
             quantity: 0
           },
@@ -33,6 +34,7 @@ export const listSteps = [
             precio_full: 59900,
             precio_descuento: 39900,
             url: 'url imagen',
+            name: 'Pasaporte Nitro',
             description: 'Incluye todas las atracciones del parque excepto Karts, Chocones y Castillo del terror.',
             quantity: 0
           },
@@ -41,15 +43,8 @@ export const listSteps = [
             precio_full: 29900,
             precio_descuento: 24900,
             url: 'url imagen',
+            name: 'Pasaporte Kids',
             description: 'Diseñado para los más chiquitos de nuestras familias, incluye una amplia variedad de atracciones infantiles y familiares.',
-            quantity: 0
-          },
-          {
-            id: 4,
-            precio_full: 53900,
-            precio_descuento: 84900,
-            url: 'url imagen',
-            description: 'Vive la mágica experiencia del Salitre Mágico con todas las atracciones del parque incluyendo el ingreso por primera vez al Castillo del Terror, Carros chocones y Pista de karts.',
             quantity: 0
           }
         ]
@@ -59,26 +54,29 @@ export const listSteps = [
         tipo: 'Calendario' as 'Calendario',
         tickets: [
           {
-            id: 3,
+            id: 4,
             precio_full: 0,
             precio_descuento: 40000,
             url: 'url imagen',
+            name: 'Pasaporte Nitro Plus Adicional',
             description: 'Adicional a tú pasaporte, no incluye Karts, Chocones ni Castillo del terror.',
-            quantity: 0
-          },
-          {
-            id: 4,
-            precio_full: 0,
-            precio_descuento: 8000,
-            url: 'url imagen',
-            description: 'Si la lluvia llegó, puedes adquirir tu seguro de lluvia que te permitirá regeresar al parque cuando las condiciones mejoren "Este bono cuenta con una vigencia de un mes para hacerce efectivo.".',
             quantity: 0
           },
           {
             id: 5,
             precio_full: 0,
+            precio_descuento: 8000,
+            url: 'url imagen',
+            name: 'Pasaporte Nitro Adicional',
+            description: 'Si la lluvia llegó, puedes adquirir tu seguro de lluvia que te permitirá regeresar al parque cuando las condiciones mejoren "Este bono cuenta con una vigencia de un mes para hacerce efectivo.".',
+            quantity: 0
+          },
+          {
+            id: 6,
+            precio_full: 0,
             precio_descuento: 30000,
             url: 'url imagen',
+            name: 'Pasaporte Kids Adicional',
             description: 'Combo pizza margarita + gaseosa 250ml.',
             quantity: 0
           }

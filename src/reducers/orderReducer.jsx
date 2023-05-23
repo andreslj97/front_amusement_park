@@ -9,7 +9,9 @@ export const ORDER_ACTIONS_TYPES = {
   ADD_ITEM: 'ADD_ITEM',
   REMOVE_ITEM: 'REMOVE_ITEM',
   UPDATE_DATES: 'UPDATE_DATES',
-  DATE_VISIT: 'DATE_VISIT'
+  DATE_VISIT: 'DATE_VISIT',
+  CREATE_ERROR: 'CREATE_ERROR',
+  CLEAR_ERROR: 'CLEAR_ERROR'
 }
 
 export const orderReducer = (state, action) => {
@@ -79,6 +81,21 @@ export const orderReducer = (state, action) => {
       const dateOfVisit = actionPayload
       const newState = structuredClone(state)
       newState.dateOfVisit = dateOfVisit
+
+      return newState
+    }
+    case ORDER_ACTIONS_TYPES.CREATE_ERROR: {
+      const message = actionPayload
+      const newState = structuredClone(state)
+      newState.error.state = true
+      newState.error.message = message
+
+      return newState
+    }
+    case ORDER_ACTIONS_TYPES.CLEAR_ERROR: {
+      const newState = structuredClone(state)
+      newState.error.state = false
+      newState.error.message = ''
 
       return newState
     }

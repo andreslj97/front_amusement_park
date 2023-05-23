@@ -11,12 +11,14 @@ import ImgTicket2 from '../../../public/Images/ticket2.png'
 import ImgTicket3 from '../../../public/Images/ticket3.png'
 import { useState } from 'react'
 import { regExpInputs } from '../../utils/regExp'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const StepPayment = (): JSX.Element => {
   const { order, updateData }: any = useOrder()
   const { dates } = order
-  const { dates: { name, lastname, city, email, phone } } = order
-  const { prevStep: prevStepState } = useStep()
+  const { dates: { name, lastname, city, email, phone, typeID } } = order
+  const { prevStep: prevStepState, addStep } = useStep()
   const [errorValidate, setError] = useState({
     errorName: true,
     errorLastname: true,
@@ -24,27 +26,54 @@ const StepPayment = (): JSX.Element => {
     errorEmail: true,
     errorPhone: true
   })
-  // const listFilter = listSteps.filter((list) => {
-  //   return list.activo
-  // })
-  // let tickets: any = []
 
-  // listFilter.forEach(item => {
-  //   const { ofertas } = item
-  //   const findTickets = ofertas.filter(ticket => ticket.tickets !== undefined)
-  //   tickets = findTickets
-  // })
   const validateData = (): void => {
+    console.log('Regexp', regExpInputs.regExpUserName.test(dates.name.replaceAll(' ', '')) && dates.name !== '')
     if (regExpInputs.regExpUserName.test(dates.name.replaceAll(' ', '')) && dates.name !== '') {
       setError({ ...errorValidate, errorName: false })
     } else {
       setError({ ...errorValidate, errorName: true })
     }
+
+    if (regExpInputs.regExpUserName.test(dates.lastname.replaceAll(' ', '')) && dates.lastname !== '') {
+      setError({ ...errorValidate, errorLastname: false })
+    } else {
+      setError({ ...errorValidate, errorLastname: true })
+    }
+
+    if (regExpInputs.regExpUserName.test(dates.city.replaceAll(' ', '')) && dates.city !== '') {
+      setError({ ...errorValidate, errorCity: false })
+    } else {
+      setError({ ...errorValidate, errorCity: true })
+    }
+
+    if (regExpInputs.regExpEmail.test(dates.email.replaceAll(' ', '')) && dates.email !== '') {
+      setError({ ...errorValidate, errorEmail: false })
+    } else {
+      setError({ ...errorValidate, errorEmail: true })
+    }
+
+    if (regExpInputs.regExpUserName.test(dates.phone.replaceAll(' ', '')) && dates.phone !== '') {
+      setError({ ...errorValidate, errorPhone: false })
+    } else {
+      setError({ ...errorValidate, errorPhone: true })
+    }
   }
   const onSubmit = (): void => {
-    // addStep()
-    validateData()
-    console.log('Va a validar', dates)
+    if (name === '' || lastname === '' || city === '' || email === '' || phone === '' || typeID === '') {
+      toast.error('Todos los campos son obligatorios', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark'
+      })
+    } else {
+      addStep()
+    }
   }
   const prevStep = (): void => {
     prevStepState()
@@ -56,6 +85,8 @@ const StepPayment = (): JSX.Element => {
   const messagesEs = {
     Alert: 'Ha ocurrido un problema'
   }
+
+  console.log('Error', errorValidate)
 
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
@@ -76,7 +107,8 @@ const StepPayment = (): JSX.Element => {
                   Apellidos
                 </label>
                 <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-last-name' type='text' placeholder='' value={lastname} onChange={(e) => onChangeDates({ ...dates, lastname: e.target.value })} />
-                <p className='text-red-500 text-xs italic'>Completa el campo.</p>
+                {errorValidate.errorLastname &&
+                  <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
               </div>
             </div>
             <div className='flex flex-wrap -mx-3 mb-6'>
@@ -85,7 +117,8 @@ const StepPayment = (): JSX.Element => {
                   Ciudad
                 </label>
                 <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={city} onChange={(e) => onChangeDates({ ...dates, city: e.target.value })} />
-                <p className='text-red-500 text-xs italic'>Completa el campo.</p>
+                {errorValidate.errorCity &&
+                  <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
               </div>
               <div className='w-full md:w-1/2 px-3'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
@@ -93,6 +126,7 @@ const StepPayment = (): JSX.Element => {
                 </label>
                 <div className='relative'>
                   <select className='block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-state' onChange={(e) => onChangeDates({ ...dates, typeID: e.target.value })}>
+                    <option>Selecciona</option>
                     <option>CC</option>
                     <option>TI</option>
                   </select>
@@ -108,14 +142,16 @@ const StepPayment = (): JSX.Element => {
                   Email
                 </label>
                 <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={email} onChange={(e) => onChangeDates({ ...dates, email: e.target.value })} />
-                <p className='text-red-500 text-xs italic'>Completa el campo.</p>
+                {errorValidate.errorEmail &&
+                  <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
               </div>
               <div className='w-full md:w-1/2 px-3'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
                   Celular
                 </label>
                 <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-last-name' type='text' placeholder='' value={phone} onChange={(e) => onChangeDates({ ...dates, phone: e.target.value })} />
-                <p className='text-red-500 text-xs italic'>Completa el campo.</p>
+                {errorValidate.errorPhone &&
+                  <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
               </div>
             </div>
           </form>
@@ -124,12 +160,6 @@ const StepPayment = (): JSX.Element => {
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[-11px] relative'>Resumen de tu compra</div>
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='h-[18rem] overflow-x-hidden overflow-y-auto'>
-            {/* <p>{name}</p>
-            <p>{lastname}</p>
-            <p>{city}</p>
-            <p>{typeID}</p>
-            <p>{email}</p>
-            <p>{phone}</p> */}
             {
               order.items.length > 0
                 ? order.items.map((item: any, index: number): any => {
@@ -160,6 +190,17 @@ const StepPayment = (): JSX.Element => {
                 })
                 : null
             }
+            <div className='bg-[#F5B723] text-[#fff] text-center p-1 top-[10px] border-t-2 relative'>
+              <div className='flex flex-row flex-nowrap justify-center items-center gap-[1rem]'>
+                <label>
+                  Codigo descuento
+                </label>
+                <input type='text' />
+              </div>
+              <div className='mt-5'>
+                <button className='bg-gray-400/50 p-3 rounded-3xl'> Aplicar descuento </button>
+              </div>
+            </div>
             {order.total !== 0 &&
               <div className='bg-[#ADC03A] text-[#fff] text-center p-1 top-[10px] border-t-2 relative'>
                 Total: <FormattedNumber value={order.total} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
@@ -167,10 +208,22 @@ const StepPayment = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <div className='flex justify-content-end'>
+      <div className='flex justify-end'>
         <ButtonReturn fnOnclick={prevStep} text='Atrás' />
         <ButtonSuccess fnOnclick={onSubmit} text='Continuar' />
       </div>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme='dark'
+      />
     </IntlProvider>
   )
 }

@@ -12,7 +12,7 @@ const StepFinish = (): JSX.Element => {
         <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg relative'>Has finalizado tú compra!!</div>
         <div className='bg-[#20477D] text-[#fff] text-center p-1 relative'>Fecha de visita</div>
       </div>
-      <div className='flex justify-content-end'>
+      <div className='flex justify-end'>
         <ButtonReturn fnOnclick={prevStep} text='Atrás' />
       </div>
     </>

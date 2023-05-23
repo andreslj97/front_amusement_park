@@ -13,6 +13,8 @@ import { format } from 'date-fns'
 import esLocale from 'date-fns/locale/es'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Hooks
 import { useStep } from '../../hooks/useStep'
@@ -40,8 +42,31 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   const [selected, setSelected] = React.useState<Date>()
   const tickets = offer?.tickets ?? []
   const onSubmit = (): void => {
-    if (order.dateOfVisit === '') return
-    addStep()
+    if (order.dateOfVisit === '') {
+      toast.error('Selecciona una fecha', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark'
+      })
+    } else if (order.items.length === 0) {
+      toast.error('Debes agregar Tickets', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark'
+      })
+    } else {
+      addStep()
+    }
   }
   const prevStep = (): void => {
     prevStepState()
@@ -82,7 +107,7 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='max-h-[18rem] overflow-x-hidden overflow-y-auto'>
             {tickets.map((itemTicket: any, index: number) => (
-              <div key={itemTicket.description} className='w-[100%] flex justify-evenly items-center'>
+              <div key={itemTicket.name} className='w-[100%] flex justify-evenly items-center'>
                 {index === 0
                   ? <Image
                       src={ImgTicket1}
@@ -100,7 +125,7 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
                         alt='user profile picture'
                         width={121}
                       />}
-                <div className='w-[60%] text-base font-thin pr-[8px]'>{itemTicket.description}</div>
+                <div className='w-[60%] text-base font-thin pr-[8px]'>{itemTicket.name}</div>
                 <div className='max-w-[20%]'>
                   <div>
                     {itemTicket.precio_full !== 0 &&
@@ -136,12 +161,24 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
             </div>}
         </div>
       </div>
-      <div className='flex justify-content-end'>
+      <div className='flex justify-end'>
         {step !== 0
           ? <ButtonReturn fnOnclick={prevStep} text='Atrás' />
           : <></>}
         <ButtonSuccess fnOnclick={onSubmit} text='Continuar' />
       </div>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme='dark'
+      />
     </IntlProvider>
   )
 }
