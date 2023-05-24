@@ -37,12 +37,22 @@ const useOrderReducer = () => {
     payload: data
   })
 
-  return { state, addItem, removeItem, updateData, updateDateVisit }
+  const createError = (data) => dispatch({
+    type: 'CREATE_ERROR',
+    payload: data
+  })
+
+  const clearError = () => dispatch({
+    type: 'CLEAR_ERROR',
+    payload: null
+  })
+
+  return { state, addItem, removeItem, updateData, updateDateVisit, createError, clearError }
 }
 
 // Create provider
 export const OrderProvider = ({ children }) => {
-  const { state, addItem, removeItem, updateData, updateDateVisit } = useOrderReducer()
+  const { state, addItem, removeItem, updateData, updateDateVisit, createError, clearError } = useOrderReducer()
 
   return (
     <OrderContext.Provider
@@ -51,7 +61,9 @@ export const OrderProvider = ({ children }) => {
         addItem,
         removeItem,
         updateData,
-        updateDateVisit
+        updateDateVisit,
+        createError,
+        clearError
       }}
     >
       {children}

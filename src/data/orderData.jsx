@@ -12,6 +12,10 @@ const orderData = {
     email: '',
     phone: ''
   },
+  error: {
+    state: false,
+    message: ''
+  },
   dateOfVisit: '',
   total: 0
 }
