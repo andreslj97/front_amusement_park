@@ -11,8 +11,9 @@ import ImgTicket3 from '../../../public/Images/ticket3.png'
 
 import { format } from 'date-fns'
 import esLocale from 'date-fns/locale/es'
-import { DayPicker } from 'react-day-picker'
-import 'react-day-picker/dist/style.css'
+import { ClassNames, DayPicker } from 'react-day-picker'
+import styles from 'react-day-picker/dist/style.module.css'
+import customStyles from './day-picker.module.css'
 
 // Hooks
 import { useStep } from '../../hooks/useStep'
@@ -21,6 +22,25 @@ import { useOrder } from '../../hooks/useOrder'
 const messagesEs = {
   Alert: 'Ha ocurrido un problema'
 }
+
+const classNames: ClassNames = {
+  ...styles,
+  head: 'custom-head',
+  tbody: 'custom-body',
+  tfoot: 'custom-tfoot',
+  caption: 'custom-caption',
+  caption_label: 'custom-caption_label',
+  nav_button: 'custom-nav_button',
+  day: 'custom-day',
+  day_disabled: 'custom-day_disabled',
+  day_selected: 'custom-day_selected',
+  table: 'custom-table',
+  cell: 'custom-cell'
+}
+
+const disabledDays = [
+  { from: new Date(1900, 1, 1), to: new Date(new Date().setDate(new Date().getDay() + 2)) }
+]
 
 const quantityItem = (itemTicket: any, order: any): any => {
   if (order.items.length > 0) {
@@ -62,27 +82,78 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   let footer = <p>Seleccione el día de visita.</p>
   console.log('Order State', order)
   order.dateOfVisit === ''
-    ? footer = <p>Selecciona tu fecha de visita.</p>
-    : footer = <p>La fecha de visita es: {format(order.dateOfVisit, 'PPP', { locale: esLocale })}.</p>
+    ? footer = <p><br />Selecciona tu fecha de visita.</p>
+    : footer = <p><br />Fecha de visita : {format(order.dateOfVisit, 'PPP', { locale: esLocale })}.</p>
 
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
-      <div className='flex justify-center m-4 border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
+      <div className='flex items-start justify-center border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
         <div className='w-[50%] flex justify-center'>
+          <style>{`
+          .custom-head {
+            color: #20477D
+          }
+          .custom-caption{
+            display:flex;
+            text-transform: uppercase;
+            align-items: center;
+            justify-content: center;
+          }
+          .custom-caption_label{
+            color: #20477D;
+            font-size: 3rem
+          }
+          .custom-nav_button{
+            color: #ADC03A;
+            margin-inline: 2rem;
+            transform: scale(2.5);
+          }
+          .custom-day{
+            border: 2px solid #C5C5C5;
+            border-radius: 0px;
+            width: 4rem;
+            height: 4rem;
+          }
+          .custom-day_disabled{
+            background-color: #C5C5C5 !important;
+            opacity: 1 !important;
+            color: #717070 !important;
+          }
+          .custom-day_selected{
+            background-color: #F5B723 !important;
+          }
+          .custom-table{
+            width: 100%;
+          }
+          .custom-cell{
+            margin: 15px;
+          }
+          .custom-tfoot{
+            color: #20477D;
+            text-align: center;
+            text-transform: uppercase;
+          }
+          `}
+          </style>
           <DayPicker
             locale={esLocale}
             mode='single'
             selected={order.dateOfVisit}
             onSelect={setSelected}
             footer={footer}
+            modifiersClassNames={{
+              day: customStyles.day
+            }}
+            classNames={classNames}
+            disabled={disabledDays}
           />
         </div>
-        <div className='w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
-          <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[-11px] relative'>{offer?.nombre}</div>
-          <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
-          <div className='max-h-[18rem] overflow-x-hidden overflow-y-auto'>
+        <div className='w-[50%] flex flex-col justify-center mt-[4rem] border-blue-900 border-solid border-2 rounded-2xl'>
+          <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[0px] relative'>{offer?.nombre}</div>
+          <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[0px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
+          <div className='max-h-[24rem] block relative overflow-x-hidden overflow-y-auto'>
             {tickets.map((itemTicket: any, index: number) => (
-              <div key={itemTicket.description} className='w-[100%] flex justify-evenly items-center'>
+              <div key={itemTicket.description} className='w-[100%] flex border-b-[1px] justify-evenly items-center'>
                 {index === 0
                   ? <Image
                       src={ImgTicket1}
@@ -100,7 +171,7 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
                         alt='user profile picture'
                         width={121}
                       />}
-                <div className='w-[60%] text-base font-thin pr-[8px]'>{itemTicket.description}</div>
+                <div className='w-[60%] text-[0.9rem] font-thin pr-[8px]'>{itemTicket.description}</div>
                 <div className='max-w-[20%]'>
                   <div>
                     {itemTicket.precio_full !== 0 &&

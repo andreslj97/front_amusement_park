@@ -59,7 +59,7 @@ const StepPayment = (): JSX.Element => {
 
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
-      <div className='flex justify-center m-4 border-yellow-500 border-solid border-2 rounded-2xl font-bold p-2 bg-yellow-500'>
+      <div className='flex justify-center m-4 border-yellow-500 border-solid border-2 rounded-2xl font-bold pt-5 pl-2 bg-yellow-500'>
         <div className='w-[50%]'>
           <form className='w-full max-w-lg' onSubmit={onSubmit}>
             <div className='flex flex-wrap -mx-3 mb-6'>
@@ -134,7 +134,7 @@ const StepPayment = (): JSX.Element => {
               order.items.length > 0
                 ? order.items.map((item: any, index: number): any => {
                   return (
-                    <div key={item.id} className='w-[100%] mt-[1rem] flex justify-evenly items-center'>
+                    <div key={item.id} className='w-[100%] flex border-b-[1px] justify-evenly items-center'>
                       {index === 0
                         ? <Image
                             src={ImgTicket1}
@@ -152,7 +152,7 @@ const StepPayment = (): JSX.Element => {
                               alt='user profile picture'
                               width={121}
                             />}
-                      <div className='w-[60%] text-base font-thin pr-[8px]'>{item.description}</div>
+                      <div className='w-[60%] text-[0.9rem] font-thin pr-[8px]'>{item.description}</div>
                       <p className='w-[10%] text-center'>{item.quantity}</p>
                       <p>{item.precio_descuento}</p>
                     </div>
