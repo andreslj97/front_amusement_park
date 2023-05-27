@@ -23,7 +23,7 @@ export default function Home (): JSX.Element {
         <Menu>
           {listMenu}
         </Menu>
-        <section className='m-20'>
+        <section className='md:m-20'>
           <Banner />
           <OrderProvider>
             <Stepper />

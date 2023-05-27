@@ -106,59 +106,72 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
   }, [selected])
 
   let footer = <p>Seleccione el día de visita.</p>
-  console.log('Order State', order)
   order.dateOfVisit === ''
     ? footer = <p><br />Selecciona tu fecha de visita.</p>
     : footer = <p><br />Fecha de visita : {format(order.dateOfVisit, 'PPP', { locale: esLocale })}.</p>
 
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
-      <div className='flex items-start justify-center border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
-        <div className='w-[50%] flex justify-center'>
+      <div className='flex flex-col items-center md:flex-row md:items-start md:justify-center border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
+        <div className='w-[100%] md:w-[50%] flex justify-center'>
           <style>{`
-          .custom-head {
-            color: #20477D
-          }
-          .custom-caption{
-            display:flex;
-            text-transform: uppercase;
-            align-items: center;
-            justify-content: center;
-          }
-          .custom-caption_label{
-            color: #20477D;
-            font-size: 3rem
-          }
-          .custom-nav_button{
-            color: #ADC03A;
-            margin-inline: 2rem;
-            transform: scale(2.5);
-          }
-          .custom-day{
-            border: 2px solid #C5C5C5;
-            border-radius: 0px;
-            width: 4rem;
-            height: 4rem;
-          }
-          .custom-day_disabled{
-            background-color: #C5C5C5 !important;
-            opacity: 1 !important;
-            color: #717070 !important;
-          }
-          .custom-day_selected{
-            background-color: #F5B723 !important;
-          }
-          .custom-table{
-            width: 100%;
-          }
-          .custom-cell{
-            margin: 15px;
-          }
-          .custom-tfoot{
-            color: #20477D;
-            text-align: center;
-            text-transform: uppercase;
-          }
+            @media only screen and (max-width: 576px) {
+              .custom-caption_label{
+                font-size: 20px !important;
+              }
+
+              .custom-nav_button {
+                transform: scale(1) !important;
+              }
+
+              .custom-day {
+                width: 40px !important;
+                height: 40px !important
+              }
+            }
+            .custom-head {
+              color: #20477D
+            }
+            .custom-caption{
+              display:flex;
+              text-transform: uppercase;
+              align-items: center;
+              justify-content: center;
+            }
+            .custom-caption_label{
+              color: #20477D;
+              font-size: 3rem
+            }
+            .custom-nav_button{
+              color: #ADC03A;
+              margin-inline: 2rem;
+              transform: scale(2.5);
+            }
+            .custom-day{
+              border: 2px solid #C5C5C5;
+              border-radius: 0px;
+              width: 4rem;
+              height: 4rem;
+            }
+            .custom-day_disabled{
+              background-color: #C5C5C5 !important;
+              opacity: 1 !important;
+              color: #717070 !important;
+            }
+            .custom-day_selected{
+              background-color: #F5B723 !important;
+            }
+            .custom-table{
+              width: 100%;
+            }
+            .custom-cell{
+              margin: 15px;
+            }
+            .custom-tfoot{
+              color: #20477D;
+              text-align: center;
+              text-transform: uppercase;
+            }
           `}
           </style>
           <DayPicker
@@ -174,12 +187,12 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
             disabled={disabledDays}
           />
         </div>
-        <div className='w-[50%] flex flex-col justify-center mt-[4rem] border-blue-900 border-solid border-2 rounded-2xl'>
+        <div className='w-[100%] md:w-[50%] flex flex-col justify-center md:mt-[4rem] border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[0px] relative'>{offer?.nombre}</div>
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[0px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='max-h-[24rem] block relative overflow-x-hidden overflow-y-auto'>
             {tickets.map((itemTicket: any, index: number) => (
-              <div key={itemTicket.name} className='w-[100%] flex border-b-[1px] justify-evenly items-center'>
+              <div key={itemTicket.name} className='w-[100%] p-4 md:p-0 flex border-b-[1px] justify-evenly items-center'>
                 {index === 0
                   ? <Image
                       src={ImgTicket1}

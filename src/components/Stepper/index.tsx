@@ -43,7 +43,7 @@ export const Stepper = (): JSX.Element => {
                 )}
           </button>
           {index + 1 < row.length &&
-            <span className='w-10 h-1 border-2 text-base border-yellow' />}
+            <span className='w-10 hidden md:block  h-1 border-2 text-base border-yellow' />}
         </div>
       ))}
     </div>

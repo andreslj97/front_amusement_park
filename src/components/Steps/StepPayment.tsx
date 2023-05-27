@@ -30,6 +30,7 @@ const StepPayment = (): JSX.Element => {
   const validateData = (): void => {
     console.log('Regexp', regExpInputs.regExpUserName.test(dates.name.replaceAll(' ', '')) && dates.name !== '')
     if (regExpInputs.regExpUserName.test(dates.name.replaceAll(' ', '')) && dates.name !== '') {
+      console.log('No error un name')
       setError({ ...errorValidate, errorName: false })
     } else {
       setError({ ...errorValidate, errorName: true })
@@ -90,8 +91,8 @@ const StepPayment = (): JSX.Element => {
 
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
-      <div className='flex justify-center m-4 border-yellow-500 border-solid border-2 rounded-2xl font-bold pt-5 pl-2 bg-yellow-500'>
-        <div className='w-[50%]'>
+      <div className='flex flex-col items-center md:flex-row  md:justify-center md:m-4 border-yellow-500 border-solid border-2 rounded-2xl font-bold pt-5 pl-2 bg-yellow-500'>
+        <div className='w-[100%] md:w-[50%]'>
           <form className='w-full max-w-lg' onSubmit={onSubmit}>
             <div className='flex flex-wrap -mx-3 mb-6'>
               <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
@@ -156,7 +157,7 @@ const StepPayment = (): JSX.Element => {
             </div>
           </form>
         </div>
-        <div className='w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
+        <div className='w-[100%] md:w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[-11px] relative'>Resumen de tu compra</div>
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[-11px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='h-[18rem] overflow-x-hidden overflow-y-auto'>
