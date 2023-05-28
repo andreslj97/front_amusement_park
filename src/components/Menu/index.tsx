@@ -1,22 +1,34 @@
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Logo from '../../../public/Images/logo.png'
 import type { MenuItem, propsWithChildren } from './types'
+import MenuButton from './buttonMobile'
+import Navbar from './navbarMobile'
+import MenuItems from './menuItems'
 
 const Menu = ({ children }: propsWithChildren): JSX.Element => {
+  const [open, setOpen] = useState(false)
+
+  const handleClick = (): void => {
+    setOpen(!open)
+  }
   return (
     <div
-      className={`flex absolute w-[100%] px-[5rem] py-[1rem]
+      className={`flex absolute w-[100%] sm:px-[5rem] py-[1rem] items-center
       ${children.position === 'Top' ? 'top-0' : 'bottom-0'}
       ${children.direction === 'Right' ? 'flex-row' : 'flex-row-reverse'}`}
       style={{ color: children.textColor, backgroundColor: children.backgroundColor }}
     >
-      <div style={{ width: children.widthLogo, height: children.heightLogo }}>
+      <div className='w-[60%] sm:w-[10%]'>
         <Image
           src={Logo}
           alt='logo'
         />
       </div>
-      <div className='w-[90%] flex justify-end items-center gap-[1rem]'>
+      <div className='hidden sm:flex w-[70%] items-center gap-[5%] mx-[3rem]'>
+        <MenuItems />
+      </div>
+      <div className='w-[100%] sm:w-[20%] flex justify-end items-center gap-[1rem]'>
         {children.level1.map((itemMenu: MenuItem) => (
           <div
             className={`
@@ -26,6 +38,10 @@ const Menu = ({ children }: propsWithChildren): JSX.Element => {
           >{itemMenu.name}
           </div>
         ))}
+      </div>
+      <div className='flex sm:hidden w-[10%] mx-[1rem]'>
+        <Navbar open={open} />
+        <MenuButton open={open} handleClick={handleClick} />
       </div>
     </div>
   )
