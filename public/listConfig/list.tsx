@@ -111,3 +111,30 @@ export const listExperience = [
     total: 30000
   }
 ]
+
+export const listPromotionForDay = [
+  {
+    id: 1,
+    day: '30',
+    month: '05',
+    year: 2023,
+    nombre: 'Pasaporte Nitro Plus',
+    descuento: 10
+  },
+  {
+    id: 2,
+    day: '31',
+    month: '05',
+    year: 2023,
+    nombre: 'Pasaporte Nitro',
+    descuento: 15
+  },
+  {
+    id: 3,
+    day: '15',
+    month: '06',
+    year: 2023,
+    nombre: 'Pasaporte Kids',
+    descuento: 30
+  }
+]

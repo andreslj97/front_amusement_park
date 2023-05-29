@@ -14,13 +14,14 @@ import esLocale from 'date-fns/locale/es'
 import 'react-day-picker/dist/style.css'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { ClassNames, DayPicker } from 'react-day-picker'
+import { ClassNames, DayPicker, DayContentProps, DayContent } from 'react-day-picker'
 import styles from 'react-day-picker/dist/style.module.css'
 import customStyles from './day-picker.module.css'
 
 // Hooks
 import { useStep } from '../../hooks/useStep'
 import { useOrder } from '../../hooks/useOrder'
+import { listPromotionForDay } from '../../../public/listConfig/list'
 
 const messagesEs = {
   Alert: 'Ha ocurrido un problema'
@@ -42,7 +43,7 @@ const classNames: ClassNames = {
 }
 
 const disabledDays = [
-  { from: new Date(1900, 1, 1), to: new Date(new Date().setDate(new Date().getDay() + 2)) }
+  { from: new Date(1900, 1, 1), to: new Date() }
 ]
 
 const quantityItem = (itemTicket: any, order: any): any => {
@@ -110,10 +111,20 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
     ? footer = <p><br />Selecciona tu fecha de visita.</p>
     : footer = <p><br />Fecha de visita : {format(order.dateOfVisit, 'PPP', { locale: esLocale })}.</p>
 
+  const DateTime = (props: DayContentProps): any => {
+    const dateTime = format(props.date, 'yyyy-MM-dd')
+    return (
+      <time dateTime={dateTime}>
+        <DayContent {...props} />
+      </time>
+    )
+  }
+
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
       <div className='flex flex-col items-center md:flex-row md:items-start md:justify-center border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
-        <div className='w-[100%] md:w-[50%] flex justify-center'>
+        <div className='w-[100%] md:w-[40%] flex justify-center'>
+          {/* STYLES DAY PICKER */}
           <style>{`
             @media only screen and (max-width: 576px) {
               .custom-caption_label{
@@ -174,6 +185,20 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
             }
           `}
           </style>
+          {/* STYLES DAY FOR PROMOTION */}
+          <style>
+            {listPromotionForDay.map((promotion) => (
+              `[datetime="${promotion.year}-${promotion.month}-${promotion.day}"]::after{
+                content: '${promotion.descuento}%';
+                background-color: blue;
+                width: 100%;
+                display: block;
+                top: 0.4rem;
+                position: relative;
+                color: #fff;
+              }`
+            ))}
+          </style>
           <DayPicker
             locale={esLocale}
             mode='single'
@@ -185,9 +210,37 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
             }}
             classNames={classNames}
             disabled={disabledDays}
+            components={{ DayContent: DateTime }}
           />
         </div>
-        <div className='w-[100%] md:w-[50%] flex flex-col justify-center md:mt-[4rem] border-blue-900 border-solid border-2 rounded-2xl'>
+        <div className='w-[100%] md:w-[20%] bg-[#20477D] md:mt-[4rem] flex flex-col justify-center'>
+          <div className='w-[100%] bg-[#ADC03A] text-[#20477D] text-lg p-2 text-center uppercase relative'>Datos de tu visita</div>
+          {
+            order.dateOfVisit === ''
+              ? <p className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Selecciona tu fecha de visita </p>
+              : listPromotionForDay.length === 0
+                ? <p>No hay promociones hoy 😯</p>
+                : listPromotionForDay.filter((promotion) => {
+                  const monthPromotion = Number(selected?.getMonth()) + 1
+                  return selected?.getDate() === Number(promotion.day) && monthPromotion === Number(promotion.month) && selected?.getFullYear() === promotion.year
+                }).length === 0
+                  ? <p className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>No hay promociones hoy 😯</p>
+                  : listPromotionForDay.map((promotion) => (
+                    selected?.getDate() === Number(promotion.day) && Number(selected?.getMonth()) + 1 === Number(promotion.month) && selected?.getFullYear() === promotion.year &&
+                      <div key={promotion.id}>
+                        <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>{promotion.nombre}</div>
+                        <p key={promotion.id} className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>la promoción es de {`${promotion.descuento}%`}</p>
+                      </div>
+                  ))
+          }
+          <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>Horario:</div>
+          <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>10:30 am a 6:00pm</div>
+          <div className='w-[100%] text-[#FFF] text-xs text-center mt-[1rem] uppercase relative'>Cierre de venta, pasaportes e ingreso al parque 4:30pm</div>
+          <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>Atraciones en mantenimiento</div>
+          <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Doble loop</div>
+          <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Barco pirata</div>
+        </div>
+        <div className='w-[100%] md:w-[40%] flex flex-col justify-center md:mt-[4rem] md:ml-[1rem] border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[0px] relative'>{offer?.nombre}</div>
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[0px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='max-h-[24rem] block relative overflow-x-hidden overflow-y-auto'>
