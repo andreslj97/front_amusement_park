@@ -5,7 +5,6 @@ import esLocale from 'date-fns/locale/es'
 import { useStep } from '../../hooks/useStep'
 import { useOrder } from '../../hooks/useOrder'
 import Image from 'next/image'
-// import { listSteps } from '../../../public/listConfig/list'
 import ImgTicket1 from '../../../public/Images/ticket1.png'
 import ImgTicket2 from '../../../public/Images/ticket2.png'
 import ImgTicket3 from '../../../public/Images/ticket3.png'
@@ -17,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const StepPayment = (): JSX.Element => {
   const { order, updateData }: any = useOrder()
   const { dates } = order
-  const { dates: { name, lastname, city, email, phone, typeID } } = order
+  const { dates: { name, lastname, city, email, phone, typeID, ID: id } } = order
   const { prevStep: prevStepState, addStep } = useStep()
   const [errorValidate, setError] = useState({
     errorName: true,
@@ -26,6 +25,7 @@ const StepPayment = (): JSX.Element => {
     errorEmail: true,
     errorPhone: true
   })
+  const [promotion, setPromotion] = useState()
 
   const validateData = (): void => {
     console.log('Regexp', regExpInputs.regExpUserName.test(dates.name.replaceAll(' ', '')) && dates.name !== '')
@@ -85,6 +85,11 @@ const StepPayment = (): JSX.Element => {
   }
   const messagesEs = {
     Alert: 'Ha ocurrido un problema'
+  }
+
+  const handleChangePromotion = (e: any): any => {
+    setPromotion(e.target.value)
+    console.log('Change', promotion)
   }
 
   console.log('Error', errorValidate)
@@ -155,6 +160,14 @@ const StepPayment = (): JSX.Element => {
                   <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
               </div>
             </div>
+            <div className='flex flex-wrap -mx-3 mb-6'>
+              <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+                <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
+                  Identificacion
+                </label>
+                <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={id} onChange={(e) => onChangeDates({ ...dates, ID: e.target.value })} />
+              </div>
+            </div>
           </form>
         </div>
         <div className='w-[100%] md:w-[50%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
@@ -196,7 +209,7 @@ const StepPayment = (): JSX.Element => {
                 <label>
                   Codigo descuento
                 </label>
-                <input type='text' />
+                <input className='text-black' type='text' value={promotion} onChange={(e) => handleChangePromotion(e)} />
               </div>
               <div className='mt-5'>
                 <button className='bg-gray-400/50 p-3 rounded-3xl'> Aplicar descuento </button>
