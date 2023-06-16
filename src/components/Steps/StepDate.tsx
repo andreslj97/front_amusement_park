@@ -213,7 +213,7 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
             components={{ DayContent: DateTime }}
           />
         </div>
-        <div className='w-[100%] md:w-[20%] bg-[#20477D] md:mt-[4rem] flex flex-col justify-center'>
+        <div className='w-[100%] md:w-[20%] bg-[#20477D] md:mt-[4rem] flex flex-col justify-start'>
           <div className='w-[100%] bg-[#ADC03A] text-[#20477D] text-lg p-2 text-center uppercase relative'>Datos de tu visita</div>
           {
             order.dateOfVisit === ''

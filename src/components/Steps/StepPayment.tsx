@@ -120,11 +120,9 @@ const StepPayment = (): JSX.Element => {
             <div className='flex flex-wrap -mx-3 mb-6'>
               <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                  Ciudad
+                  Identificacion
                 </label>
-                <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={city} onChange={(e) => onChangeDates({ ...dates, city: e.target.value })} />
-                {errorValidate.errorCity &&
-                  <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
+                <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={id} onChange={(e) => onChangeDates({ ...dates, ID: e.target.value })} />
               </div>
               <div className='w-full md:w-1/2 px-3'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
@@ -163,9 +161,11 @@ const StepPayment = (): JSX.Element => {
             <div className='flex flex-wrap -mx-3 mb-6'>
               <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
                 <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                  Identificacion
+                  Ciudad
                 </label>
-                <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={id} onChange={(e) => onChangeDates({ ...dates, ID: e.target.value })} />
+                <input className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' id='grid-first-name' type='text' placeholder='' value={city} onChange={(e) => onChangeDates({ ...dates, city: e.target.value })} />
+                {errorValidate.errorCity &&
+                  <p className='text-red-500 text-xs italic'>Completa el campo.</p>}
               </div>
             </div>
           </form>
