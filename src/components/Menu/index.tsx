@@ -25,7 +25,7 @@ const Menu = ({ children }: propsWithChildren): JSX.Element => {
           alt='logo'
         />
       </div>
-      <div className='hidden sm:flex w-[70%] items-center gap-[5%] mx-[3rem]'>
+      <div className='hidden sm:flex w-[70%] items-center justify-end gap-[3%] mx-[3rem]'>
         <MenuItems />
       </div>
       <div className='w-[100%] sm:w-[20%] flex justify-end items-center gap-[1rem]'>
