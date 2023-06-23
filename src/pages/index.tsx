@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl'
 // Components
 import Menu from '../components/Menu'
 import Banner from '../components/Banner'
+import Footer from '../components/Footer'
 import { Stepper } from '../components/Stepper'
 import Steps from '../components/Steps'
 
@@ -29,6 +30,7 @@ export default function Home (): JSX.Element {
             <Stepper />
             <Steps />
           </OrderProvider>
+          <Footer />
         </section>
       </IntlProvider>
     </>
