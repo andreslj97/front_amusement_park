@@ -14,7 +14,7 @@ const Menu = ({ children }: propsWithChildren): JSX.Element => {
   }
   return (
     <div
-      className={`flex absolute w-[100%] sm:px-[5rem] py-[1rem] items-center
+      className={`flex absolute w-[100%] sm:px-[5rem] py-[1rem] items-center sticky z-10
       ${children.position === 'Top' ? 'top-0' : 'bottom-0'}
       ${children.direction === 'Right' ? 'flex-row' : 'flex-row-reverse'}`}
       style={{ color: children.textColor, backgroundColor: children.backgroundColor }}

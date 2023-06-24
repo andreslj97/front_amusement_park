@@ -131,10 +131,25 @@ export const listPromotionForDay = [
   },
   {
     id: 3,
-    day: '15',
+    day: '30',
     month: '06',
     year: 2023,
     nombre: 'Pasaporte Kids',
     descuento: 30
+  }
+]
+
+export const ListLeyendTableDate = [
+  {
+    color: '#fff',
+    title: 'Abierto'
+  },
+  {
+    color: '#e5e7eb',
+    title: 'Cerrado'
+  },
+  {
+    color: '#F5B723',
+    title: 'Seleccionado'
   }
 ]

@@ -21,7 +21,7 @@ import customStyles from './day-picker.module.css'
 // Hooks
 import { useStep } from '../../hooks/useStep'
 import { useOrder } from '../../hooks/useOrder'
-import { listPromotionForDay } from '../../../public/listConfig/list'
+import { listPromotionForDay, ListLeyendTableDate } from '../../../public/listConfig/list'
 
 const messagesEs = {
   Alert: 'Ha ocurrido un problema'
@@ -59,6 +59,7 @@ const quantityItem = (itemTicket: any, order: any): any => {
 
 const StepDate = ({ offer }: StepperProps): JSX.Element => {
   // Context
+  const [ styleForPromotionDay, setStyleForPromotionDay] = React.useState<String>('')
   const { step, addStep, prevStep: prevStepState } = useStep()
   const { order, addItem, removeItem, updateDateVisit } = useOrder()
   const [selected, setSelected] = React.useState<Date>()
@@ -103,7 +104,6 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
     if (selected != null) {
       updateDateVisit(selected)
     }
-    console.log('Order State', order)
   }, [selected])
 
   let footer = <p>Seleccione el día de visita.</p>
@@ -120,127 +120,150 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
     )
   }
 
+  const TagPromotionForDay = (): void => {
+    let styles = ''
+    listPromotionForDay.map((promotion) => (
+      styles = styles + ` [datetime="${promotion.year}-${promotion.month}-${promotion.day}"]::after{
+        content: '${promotion.descuento}%';
+        background-color: blue;
+        width: 100%;
+        display: block;
+        top: 0.4rem;
+        position: relative;
+        color: #fff;
+      }`
+    ))
+    setStyleForPromotionDay(styles)
+  }
+
+  useEffect(() => {
+    TagPromotionForDay()
+  }, [])
+
   return (
     <IntlProvider messages={messagesEs} locale='en' defaultLocale='en'>
-      <div className='flex flex-col items-center md:flex-row md:items-start md:justify-center border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
-        <div className='w-[100%] md:w-[40%] flex justify-center'>
-          {/* STYLES DAY PICKER */}
-          <style>{`
-            @media only screen and (max-width: 576px) {
+      <div className='md:max-w-[1525px] md:m-auto md:justify-between md:mt-[2rem] flex flex-col items-center md:flex-row md:items-start md:justify-center border-blue-900 rounded-2xl font-bold p-2 bg-blue-900'>
+        <div className='md:w-[58%] md:border-[1px] md:border-[#e5e7eb] flex flex-row flex-wrap justify-around'>
+          <div className='w-[100%] md:w-[60%] md:min-w-[500px] flex flex-col justify-center'>
+            {/* STYLES DAY PICKER */}
+            <style>{styleForPromotionDay}</style>
+            <style>{`
+              @media only screen and (max-width: 576px) {
+                .custom-caption_label{
+                  font-size: 20px !important;
+                }
+
+                .custom-nav_button {
+                  transform: scale(1) !important;
+                }
+
+                .custom-day {
+                  width: 40px !important;
+                  height: 40px !important
+                }
+              }
+              .custom-head {
+                color: #20477D
+              }
+              .custom-caption{
+                display:flex;
+                text-transform: uppercase;
+                align-items: center;
+                justify-content: center;
+              }
               .custom-caption_label{
-                font-size: 20px !important;
+                color: #20477D;
+                font-size: 3rem
               }
-
-              .custom-nav_button {
-                transform: scale(1) !important;
+              .custom-nav_button{
+                color: #ADC03A;
+                margin-inline: 2rem;
+                transform: scale(2.5);
               }
-
-              .custom-day {
-                width: 40px !important;
-                height: 40px !important
+              .custom-day{
+                border: 2px solid #C5C5C5;
+                border-radius: 0px;
+                width: 4rem;
+                height: 4rem;
               }
-            }
-            .custom-head {
-              color: #20477D
-            }
-            .custom-caption{
-              display:flex;
-              text-transform: uppercase;
-              align-items: center;
-              justify-content: center;
-            }
-            .custom-caption_label{
-              color: #20477D;
-              font-size: 3rem
-            }
-            .custom-nav_button{
-              color: #ADC03A;
-              margin-inline: 2rem;
-              transform: scale(2.5);
-            }
-            .custom-day{
-              border: 2px solid #C5C5C5;
-              border-radius: 0px;
-              width: 4rem;
-              height: 4rem;
-            }
-            .custom-day_disabled{
-              background-color: #C5C5C5 !important;
-              opacity: 1 !important;
-              color: #717070 !important;
-            }
-            .custom-day_selected{
-              background-color: #F5B723 !important;
-            }
-            .custom-table{
-              width: 100%;
-            }
-            .custom-cell{
-              margin: 15px;
-            }
-            .custom-tfoot{
-              color: #20477D;
-              text-align: center;
-              text-transform: uppercase;
-            }
-          `}
-          </style>
-          {/* STYLES DAY FOR PROMOTION */}
-          <style>
-            {listPromotionForDay.map((promotion) => (
-              `[datetime="${promotion.year}-${promotion.month}-${promotion.day}"]::after{
-                content: '${promotion.descuento}%';
-                background-color: blue;
+              .custom-day_disabled{
+                background-color: #C5C5C5 !important;
+                opacity: 1 !important;
+                color: #717070 !important;
+              }
+              .custom-day_selected{
+                background-color: #F5B723 !important;
+              }
+              .custom-table{
                 width: 100%;
-                display: block;
-                top: 0.4rem;
-                position: relative;
-                color: #fff;
-              }`
-            ))}
-          </style>
-          <DayPicker
-            locale={esLocale}
-            mode='single'
-            selected={order.dateOfVisit}
-            onSelect={setSelected}
-            footer={footer}
-            modifiersClassNames={{
-              day: customStyles.day
-            }}
-            classNames={classNames}
-            disabled={disabledDays}
-            components={{ DayContent: DateTime }}
-          />
+              }
+              .custom-cell{
+                margin: 15px;
+              }
+              .custom-tfoot{
+                color: #20477D;
+                text-align: center;
+                text-transform: uppercase;
+              }
+            `}
+            </style>
+            {/* STYLES DAY FOR PROMOTION */}
+            <DayPicker
+              locale={esLocale}
+              mode='single'
+              selected={order.dateOfVisit}
+              onSelect={setSelected}
+              footer={footer}
+              modifiersClassNames={{
+                day: customStyles.day
+              }}
+              classNames={classNames}
+              disabled={disabledDays}
+              components={{ DayContent: DateTime }}
+            />
+            <div className='flex flex-row gap-[1rem] justify-center'>
+              {ListLeyendTableDate.map((item) => (
+                <div key={item.title} className='flex flex-row gap-[10px]'>
+                  <div style={{ width: '20px', height: '20px', background: `${item.color}`, border: '1px solid' }} />
+                  {item.title}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className='w-[100%] md:w-[25%] bg-[#20477D] flex flex-col justify-start'>
+            <div className='w-[100%] bg-[#ADC03A] text-[#20477D] text-lg p-2 text-center uppercase relative'>Datos de tu visita</div>
+            {
+              order.dateOfVisit === ''
+                ? <p className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Selecciona tu fecha de visita </p>
+                : listPromotionForDay.length === 0
+                  ? <p>No hay promociones hoy 😯</p>
+                  : listPromotionForDay.filter((promotion) => {
+                    const monthPromotion = Number(selected?.getMonth()) + 1
+                    return selected?.getDate() === Number(promotion.day) && monthPromotion === Number(promotion.month) && selected?.getFullYear() === promotion.year
+                  }).length === 0
+                    ? <p className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>No hay promociones hoy 😯</p>
+                    : listPromotionForDay.map((promotion) => (
+                      selected?.getDate() === Number(promotion.day) && Number(selected?.getMonth()) + 1 === Number(promotion.month) && selected?.getFullYear() === promotion.year &&
+                        <div key={promotion.id}>
+                          <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>{promotion.nombre}</div>
+                          <p key={promotion.id} className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>la promoción es de {`${promotion.descuento}%`}</p>
+                        </div>
+                    ))
+            }
+            <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>Horario:</div>
+            <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>10:30 am a 6:00pm</div>
+            <div className='w-[100%] text-[#FFF] text-xs text-center mt-[1rem] uppercase relative'>Cierre de venta, pasaportes e ingreso al parque 4:30pm</div>
+            <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>Atraciones en mantenimiento</div>
+            <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Doble loop</div>
+            <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Barco pirata</div>
+          </div>
+          <div className='w-[100%] bg-[#20477D] rounded-[18px] m-[2rem] text-[#fff] text-[12px] font-thin p-[1rem]'>
+            La fecha que selecciones es con la cual realizarás tu visita y no tiene cambio.<br />
+            Precios sujetos a cambios sin previo aviso.<br />
+            Te invitamos a revisar términos y condiciones de visita y de la compra web.<br />
+          </div>
         </div>
-        <div className='w-[100%] md:w-[20%] bg-[#20477D] md:mt-[4rem] flex flex-col justify-start'>
-          <div className='w-[100%] bg-[#ADC03A] text-[#20477D] text-lg p-2 text-center uppercase relative'>Datos de tu visita</div>
-          {
-            order.dateOfVisit === ''
-              ? <p className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Selecciona tu fecha de visita </p>
-              : listPromotionForDay.length === 0
-                ? <p>No hay promociones hoy 😯</p>
-                : listPromotionForDay.filter((promotion) => {
-                  const monthPromotion = Number(selected?.getMonth()) + 1
-                  return selected?.getDate() === Number(promotion.day) && monthPromotion === Number(promotion.month) && selected?.getFullYear() === promotion.year
-                }).length === 0
-                  ? <p className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>No hay promociones hoy 😯</p>
-                  : listPromotionForDay.map((promotion) => (
-                    selected?.getDate() === Number(promotion.day) && Number(selected?.getMonth()) + 1 === Number(promotion.month) && selected?.getFullYear() === promotion.year &&
-                      <div key={promotion.id}>
-                        <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>{promotion.nombre}</div>
-                        <p key={promotion.id} className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>la promoción es de {`${promotion.descuento}%`}</p>
-                      </div>
-                  ))
-          }
-          <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>Horario:</div>
-          <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>10:30 am a 6:00pm</div>
-          <div className='w-[100%] text-[#FFF] text-xs text-center mt-[1rem] uppercase relative'>Cierre de venta, pasaportes e ingreso al parque 4:30pm</div>
-          <div className='w-[100%] text-[#ADC03A] text-sm mt-[1rem] text-center uppercase relative'>Atraciones en mantenimiento</div>
-          <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Doble loop</div>
-          <div className='w-[100%] text-[#FFF] text-xs text-center uppercase relative'>Barco pirata</div>
-        </div>
-        <div className='w-[100%] md:w-[40%] flex flex-col justify-center md:mt-[4rem] md:ml-[1rem] border-blue-900 border-solid border-2 rounded-2xl'>
+        <div className='w-[100%] md:w-[40%] flex flex-col justify-center border-blue-900 border-solid border-2 rounded-2xl'>
           <div className='bg-[#ADC03A] text-[#20477D] text-lg text-center p-1 uppercase rounded-t-lg top-[0px] relative'>{offer?.nombre}</div>
           <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[0px] relative'>{order.dateOfVisit === '' ? 'Seleciona una fecha!' : `Fecha de visita: ${format(order.dateOfVisit, 'PPP', { locale: esLocale })}`}</div>
           <div className='max-h-[24rem] block relative overflow-x-hidden overflow-y-auto'>
@@ -285,11 +308,11 @@ const StepDate = ({ offer }: StepperProps): JSX.Element => {
               </div>
             ))}
           </div>
-          {order['Fecha de visita'].total !== 0 &&
+          {order['Fecha de visita']?.total !== 0 &&
             <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[10px] relative'>
               Boletos: <FormattedNumber value={order['Fecha de visita'].total} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
             </div>}
-          {order['Mejora tu visita'].total !== 0 &&
+          {order['Mejora tu visita']?.total !== 0 &&
             <div className='bg-[#20477D] text-[#fff] text-center p-1 top-[10px] border-t-2 relative'>
               Adicionales: <FormattedNumber value={order['Mejora tu visita'].total} style='currency' currency='USD' minimumFractionDigits={0} maximumFractionDigits={0} />
             </div>}
