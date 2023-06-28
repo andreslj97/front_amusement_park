@@ -59,7 +59,7 @@ const quantityItem = (itemTicket: any, order: any): any => {
 
 const StepDate = ({ offer }: StepperProps): JSX.Element => {
   // Context
-  const [ styleForPromotionDay, setStyleForPromotionDay] = React.useState<String>('')
+  const [styleForPromotionDay, setStyleForPromotionDay] = React.useState<String>('')
   const { step, addStep, prevStep: prevStepState } = useStep()
   const { order, addItem, removeItem, updateDateVisit } = useOrder()
   const [selected, setSelected] = React.useState<Date>()
